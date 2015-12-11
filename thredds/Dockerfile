@@ -1,8 +1,8 @@
 # vim:set ft=dockerfile:
 FROM birdhouse/bird-base:latest
-MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/redis
+MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/thredds
 
-LABEL Description="Redis in-memory data structure store" Vendor="Redis" Version="3.0.3"
+LABEL Description="Thredds data server" Vendor="Unidata" Version="4.6.2"
 
 # Configure hostname and user for services 
 ENV HOSTNAME localhost
@@ -35,7 +35,7 @@ VOLUME /data/cache
 VOLUME /data/lib
 
 # Ports used in birdhouse
-EXPOSE 6379
+EXPOSE 8080
 
 # Start supervisor in foreground
 ENV DAEMON_OPTS --nodaemon --user $USER
