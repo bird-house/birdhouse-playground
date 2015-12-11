@@ -1,8 +1,8 @@
 # vim:set ft=dockerfile:
 FROM birdhouse/bird-base:latest
-MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/adagucserver
+MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/redis
 
-LABEL Description="Adaguc Web Map Service by KNMI" Vendor="KNMI" Version="1.9.6"
+LABEL Description="Redis in-memory data structure store" Vendor="Redis" Version="3.0.3"
 
 # Configure hostname and user for services 
 ENV HOSTNAME localhost
@@ -35,7 +35,7 @@ VOLUME /data/cache
 VOLUME /data/lib
 
 # Ports used in birdhouse
-EXPOSE 9002
+EXPOSE 6379
 
 # Start supervisor in foreground
 ENV DAEMON_OPTS --nodaemon --user $USER
