@@ -18,7 +18,8 @@ RUN mkdir -p /opt/birdhouse && curl -ksL https://github.com/bird-house/pyramid-p
 # cd into application
 WORKDIR /opt/birdhouse
 
-COPY buildout.cfg .
+# Overwrite buildout.cfg in source folder
+COPY buildout.cfg buildout.cfg
 
 # Install system dependencies
 RUN bash bootstrap.sh -i && bash requirements.sh
