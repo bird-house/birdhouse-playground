@@ -18,6 +18,9 @@ RUN mkdir -p /opt/birdhouse && curl -ksL https://github.com/bird-house/birdhouse
 WORKDIR /opt/birdhouse/mongodb
 
 
+# Provide custom.cfg with settings for docker image
+COPY docker.cfg custom.cfg
+
 # Install system dependencies
 RUN bash bootstrap.sh -i && bash requirements.sh
 
