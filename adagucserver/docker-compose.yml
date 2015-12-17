@@ -1,0 +1,4 @@
+adagucserver:
+  image: birdhouse/adagucserver
+  ports:
+    - "9002:9002"
