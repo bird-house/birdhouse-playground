@@ -12,11 +12,12 @@ ENV USER www-data
 # Set current home
 ENV HOME /root
 
-# Add application sources
-ADD . /opt/birdhouse
+# Load sources from github
+RUN mkdir -p /opt/birdhouse && curl -ksL https://github.com/bird-house/birdhouse-playground/archive/master.tar.gz | tar -xzC /opt/birdhouse --strip-components=1
 
-# cd into application
-WORKDIR /opt/birdhouse
+WORKDIR /opt/birdhouse/adagucserver
+
+
 
 # Install system dependencies
 RUN bash bootstrap.sh -i && bash requirements.sh
@@ -40,6 +41,6 @@ EXPOSE 9002
 # Start supervisor in foreground
 ENV DAEMON_OPTS --nodaemon --user $USER
 
-# Update config and start supervisor ...
-CMD ["make", "update-config", "start"]
+# Start service ...
+CMD ["make", "start"]
 
