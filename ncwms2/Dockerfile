@@ -12,8 +12,8 @@ ENV USER www-data
 # Set current home
 ENV HOME /root
 
-# Copy application sources
-COPY . /opt/birdhouse
+# Load sources from github
+RUN mkdir -p /opt/birdhouse && curl -ksL https://github.com/bird-house/birdhouse-playground/archive/master.tar.gz | tar -xzC /opt/birdhouse --strip-components=1
 
 WORKDIR /opt/birdhouse/ncwms2
 
