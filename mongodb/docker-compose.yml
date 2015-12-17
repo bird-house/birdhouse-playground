@@ -1,0 +1,4 @@
+mongodb:
+  image: birdhouse/mongodb
+  ports:
+    - "27027:27027"
