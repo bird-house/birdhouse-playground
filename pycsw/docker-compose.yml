@@ -1,0 +1,4 @@
+pycsw:
+  image: birdhouse/pycsw
+  ports:
+    - "27027:27027"
