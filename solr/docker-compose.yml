@@ -1,0 +1,4 @@
+solr:
+  image: birdhouse/solr
+  ports:
+    - "8983:8983"
