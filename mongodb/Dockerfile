@@ -19,7 +19,7 @@ WORKDIR /opt/birdhouse/mongodb
 
 
 # Provide custom.cfg with settings for docker image
-COPY docker.cfg custom.cfg
+COPY .docker.cfg custom.cfg
 
 # Install system dependencies
 RUN bash bootstrap.sh -i && bash requirements.sh
@@ -43,6 +43,6 @@ EXPOSE 27027
 # Start supervisor in foreground
 ENV DAEMON_OPTS --nodaemon --user $USER
 
-# Update config and start supervisor ...
-CMD ["make", "update-config", "start"]
+# Start service ...
+CMD ["make", "start"]
 
