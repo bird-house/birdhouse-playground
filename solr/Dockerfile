@@ -18,6 +18,7 @@ RUN mkdir -p /opt/birdhouse && curl -ksL https://github.com/bird-house/birdhouse
 WORKDIR /opt/birdhouse/solr
 
 
+
 # Install system dependencies
 RUN bash bootstrap.sh -i && bash requirements.sh
 
@@ -40,6 +41,6 @@ EXPOSE 8983
 # Start supervisor in foreground
 ENV DAEMON_OPTS --nodaemon --user $USER
 
-# Update config and start supervisor ...
-CMD ["make", "update-config", "start"]
+# Start service ...
+CMD ["make", "start"]
 
