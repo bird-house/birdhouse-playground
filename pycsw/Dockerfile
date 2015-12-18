@@ -19,8 +19,6 @@ COPY . /opt/birdhouse
 WORKDIR /opt/birdhouse
 
 
-# Provide custom.cfg with settings for docker image
-COPY .docker.cfg custom.cfg
 
 # Install system dependencies
 RUN bash bootstrap.sh -i && bash requirements.sh
