@@ -19,6 +19,8 @@ COPY . /opt/birdhouse
 WORKDIR /opt/birdhouse
 
 
+# Provide custom.cfg with settings for docker image
+COPY .docker.cfg custom.cfg
 
 # Install system dependencies
 RUN bash bootstrap.sh -i && bash requirements.sh
@@ -32,9 +34,9 @@ RUN make clean install
 
 # Volume for data, cache, logfiles, ...
 RUN chown -R $USER $CONDA_ENVS_DIR/birdhouse
-RUN mv $CONDA_ENVS_DIR/birdhouse/var /data && ln -s /data $CONDA_ENVS_DIR/birdhouse/var
-VOLUME /data/cache
-VOLUME /data/lib
+RUN mkdir -p $CONDA_ENVS_DIR/birdhouse/var/lib && mv $CONDA_ENVS_DIR/birdhouse/var/lib /data && ln -s /data $CONDA_ENVS_DIR/birdhouse/var/lib
+RUN chown -R $USER /data
+VOLUME /data
 
 # Ports used in birdhouse
 EXPOSE 8080
