@@ -43,6 +43,39 @@ solr:
     - "8983:8983"
   volumes_from:
     - malleefowl
+emu:
+  image: birdhouse/emu
+  ports:
+    - "48094:9001"
+    - "38094:38094"
+    - "8094:8094"
+  environment:
+    - HOSTNAME=adelie.d.dkrz.de
+    - OUTPUT_PORT=38094
+  volumes_from:
+    - malleefowl
+flyingpigeon:
+  image: birdhouse/flyingpigeon
+  ports:
+    - "48093:9001"
+    - "38093:38093"
+    - "8093:8093"
+  environment:
+    - HOSTNAME=adelie.d.dkrz.de
+    - OUTPUT_PORT=38093
+  volumes_from:
+    - malleefowl
+hummingbird:
+  image: birdhouse/hummingbird
+  ports:
+    - "48092:9001"
+    - "38092:38092"
+    - "8092:8092"
+  environment:
+    - HOSTNAME=adelie.d.dkrz.de
+    - OUTPUT_PORT=38092
+  volumes_from:
+    - malleefowl
 malleefowl:
   image: birdhouse/malleefowl
   command: make update-config update-user start
