@@ -1,4 +1,9 @@
 adagucserver:
   image: birdhouse/adagucserver
+  command: make update-config update-user start
   ports:
+    - "49002:9001"
     - "9002:9002"
+  volumes:
+    - data:/data
+  volume_driver: local
