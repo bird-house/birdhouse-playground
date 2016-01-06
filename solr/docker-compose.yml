@@ -1,4 +1,9 @@
 solr:
   image: birdhouse/solr
+  command: make update-config update-user start
   ports:
+    - "48983:9001"
     - "8983:8983"
+  volumes:
+    - data:/data
+  volume_driver: local
