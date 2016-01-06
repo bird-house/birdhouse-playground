@@ -1,4 +1,9 @@
 thredds:
   image: birdhouse/thredds
+  command: make start
   ports:
-    - "8080:8080"
+    - "48083:9001"
+    - "8083:8080"
+  volumes:
+    - data:/data
+  volume_driver: local
