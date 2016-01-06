@@ -1,4 +1,9 @@
 mongodb:
   image: birdhouse/mongodb
+  command: make update-config update-user start
   ports:
+    - "37027:9001"
     - "27027:27027"
+  volumes:
+    - data:/data
+  volume_driver: local
