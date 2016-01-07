@@ -45,5 +45,5 @@ EXPOSE 8080
 ENV DAEMON_OPTS --nodaemon --user $USER
 
 # Start service ...
-CMD ["make", "start"]
+CMD ["make", "update-config", "update-user", "start"]
 
