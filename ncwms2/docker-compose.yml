@@ -1,6 +1,5 @@
 ncwms:
   image: birdhouse/ncwms2
-  command: make start
   ports:
     - "48080:9001"
     - "8080:8080"

@@ -12,10 +12,11 @@ ENV USER www-data
 # Set current home
 ENV HOME /root
 
-# Load sources from github
-RUN mkdir -p /opt/birdhouse && curl -ksL https://github.com/bird-house/birdhouse-playground/archive/master.tar.gz | tar -xzC /opt/birdhouse --strip-components=1
+# Copy application sources
+COPY . /opt/birdhouse
 
-WORKDIR /opt/birdhouse/ncwms2
+# cd into application
+WORKDIR /opt/birdhouse
 
 
 # Provide custom.cfg with settings for docker image
@@ -44,5 +45,5 @@ EXPOSE 8080
 ENV DAEMON_OPTS --nodaemon --user $USER
 
 # Start service ...
-CMD ["make", "start"]
+CMD ["make", "update-config", "update-user", "start"]
 
