@@ -1,8 +1,9 @@
 phoenix:
   image: birdhouse/pyramid-phoenix
-  command: make update update-user start
-  volumes:
-    - .docker.cfg:/opt/birdhouse/custom.cfg
+  environment:
+    - HOSTNAME
+  volumes_from:
+    - mongodb
   ports:
     - "9001:9001"
     - "8081:8081"
@@ -10,38 +11,39 @@ phoenix:
   links:
     - mongodb
     - redis
+    - pycsw
 mongodb:
   image: birdhouse/mongodb
   command: make update-config update-user start
-  volumes_from:
-    - malleefowl
+  volumes:
+    - data:/data
+  volume_driver: local
 redis:
   image: birdhouse/redis
   command: make update-config update-user start
   volumes_from:
-    - malleefowl
+    - mongodb
 pycsw:
   image: birdhouse/pycsw
   command: make update-config update-user start
-  ports:
-    - "8082:8082"
   environment:
-    - HOSTNAME=adelie.d.dkrz.de
+    - HOSTNAME=pycsw
+  extra_hosts:
+    - "pycsw:127.0.0.1"
   volumes_from:
-    - malleefowl
+    - mongodb
 ncwms2:
   image: birdhouse/ncwms2
   ports:
     - "8080:8080"
   volumes_from:
-    - malleefowl
+    - mongodb
 solr:
   image: birdhouse/solr
-  command: make update-config update-user start
   ports:
     - "8983:8983"
   volumes_from:
-    - malleefowl
+    - mongodb
 emu:
   image: birdhouse/emu
   ports:
@@ -49,10 +51,10 @@ emu:
     - "38094:38094"
     - "8094:8094"
   environment:
-    - HOSTNAME=adelie.d.dkrz.de
+    - HOSTNAME
     - OUTPUT_PORT=38094
   volumes_from:
-    - malleefowl
+    - mongodb
 flyingpigeon:
   image: birdhouse/flyingpigeon
   ports:
@@ -60,10 +62,10 @@ flyingpigeon:
     - "38093:38093"
     - "8093:8093"
   environment:
-    - HOSTNAME=adelie.d.dkrz.de
+    - HOSTNAME
     - OUTPUT_PORT=38093
   volumes_from:
-    - malleefowl
+    - mongodb
 hummingbird:
   image: birdhouse/hummingbird
   ports:
@@ -71,10 +73,10 @@ hummingbird:
     - "38092:38092"
     - "8092:8092"
   environment:
-    - HOSTNAME=adelie.d.dkrz.de
+    - HOSTNAME
     - OUTPUT_PORT=38092
   volumes_from:
-    - malleefowl
+    - mongodb
 malleefowl:
   image: birdhouse/malleefowl
   command: make update-config update-user start
@@ -84,8 +86,7 @@ malleefowl:
     - "28091:28091"
     - "8091:8091"
   environment:
-    - HOSTNAME=adelie.d.dkrz.de
-  volumes:
-    - data:/data
-  volume_driver: local
+    - HOSTNAME
+  volumes_from:
+    - mongodb
  
