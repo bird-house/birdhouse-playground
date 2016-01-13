@@ -1,0 +1,16 @@
+phoenix:
+  environment:
+    - HOSTNAME=192.168.99.100
+emu:
+  environment:
+    - HOSTNAME=192.168.99.100
+flyingpigeon:
+  environment:
+    - HOSTNAME=192.168.99.100
+hummingbird:
+  environment:
+    - HOSTNAME=192.168.99.100
+malleefowl:
+  environment:
+    - HOSTNAME=192.168.99.100
+ 
