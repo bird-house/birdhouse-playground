@@ -1,0 +1,9 @@
+---
+# This playbook installs the emu WPS service.
+
+- name: git clone phoenix
+  git: repo=https://github.com/bird-house/pyramid-phoenix.git dest=pyramid-phoenix
+
+- name: install phoenix
+  shell: cd pyramid-phoenix && make install
+  notify: restart phoenix

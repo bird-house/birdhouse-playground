@@ -1,0 +1,3 @@
+---
+- name: restart hummingbird
+  shell: cd hummingbird && make restart

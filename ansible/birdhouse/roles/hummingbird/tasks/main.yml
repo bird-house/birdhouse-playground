@@ -1,0 +1,9 @@
+---
+# This playbook installs the emu WPS service.
+
+- name: git clone hummingbird
+  git: repo=https://github.com/bird-house/hummingbird.git dest=hummingbird
+
+- name: install hummingbird
+  shell: cd hummingbird && make install
+  notify: restart hummingbird
