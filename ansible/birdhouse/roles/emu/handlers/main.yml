@@ -1,0 +1,3 @@
+---
+- name: restart emu
+  shell: cd emu && make restart

@@ -2,4 +2,8 @@
 # This playbook installs the emu WPS service.
 
 - name: Checkout git repo
-  git: repo={{ emu_repo }} dest=/home/birdhouse/
+  git: repo={{ emu_repo }} dest=emu
+
+- name: Install Emu
+  shell: cd emu && make install
+  notify: restart emu
