@@ -1,0 +1,5 @@
+---
+# This playbook installs the emu WPS service.
+
+- name: Checkout git repo
+  git: repo={{ emu_repo }} dest=/home/birdhouse/

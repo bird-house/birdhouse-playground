@@ -1,0 +1,11 @@
+---
+# This playbook deploys the whole birdhouse application stack in this site. 
+
+- name: Install Emu WPS
+  hosts: wps
+  remote_user: phoenix
+  roles: 
+    - emu
+
+ 
+
