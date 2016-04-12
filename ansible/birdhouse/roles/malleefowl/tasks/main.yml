@@ -1,9 +1,21 @@
 ---
-# This playbook installs the emu WPS service.
+# This playbook installs the malleefowl WPS service.
 
 - name: git clone malleefowl
-  git: repo=https://github.com/bird-house/malleefowl.git dest=malleefowl
+  git: repo=https://github.com/bird-house/malleefowl dest=malleefowl force=yes
+  register: git_malleefowl
 
 - name: install malleefowl
   shell: cd malleefowl && make clean && make install
   notify: restart malleefowl
+  when: git_malleefowl.changed
+
+- name: copy malleefowl configuration
+  template: src=custom.cfg dest=malleefowl/custom.cfg
+  register: config_malleefowl
+
+- name: update malleefowl
+  shell: cd malleefowl && make update
+  notify: restart malleefowl
+  when: config_malleefowl.changed
+
