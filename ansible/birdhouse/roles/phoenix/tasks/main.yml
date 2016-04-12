@@ -5,5 +5,5 @@
   git: repo=https://github.com/bird-house/pyramid-phoenix.git dest=pyramid-phoenix
 
 - name: install phoenix
-  shell: cd pyramid-phoenix && make install
+  shell: cd pyramid-phoenix && make clean && make install
   notify: restart phoenix

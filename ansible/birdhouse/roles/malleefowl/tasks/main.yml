@@ -5,5 +5,5 @@
   git: repo=https://github.com/bird-house/malleefowl.git dest=malleefowl
 
 - name: install malleefowl
-  shell: cd malleefowl && make install
+  shell: cd malleefowl && make clean && make install
   notify: restart malleefowl

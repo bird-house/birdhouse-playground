@@ -1,3 +1,4 @@
 ---
 - name: restart hummingbird
-  shell: cd hummingbird && make restart
+  supervisorctl: name=hummingbird state=restarted server_url=http://localhost:9001
+  
