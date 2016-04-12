@@ -3,13 +3,19 @@
 
 - name: git clone emu
   git: repo=https://github.com/bird-house/emu dest=emu force=yes
-  register: gitemu
-
-- name: copy emu configuration
-  template: src=custom.cfg dest=emu/custom.cfg
+  register: git_emu
 
 - name: install emu
   shell: cd emu && make clean && make install
   notify: restart emu
-  when: gitemu.changed
+  when: git_emu.changed
+
+- name: copy emu configuration
+  template: src=custom.cfg dest=emu/custom.cfg
+  register: config_emu
+
+- name: update emu
+  shell: cd emu && make update
+  notify: restart emu
+  when: config_emu.changed
 
