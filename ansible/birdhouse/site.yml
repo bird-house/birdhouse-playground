@@ -1,13 +1,20 @@
 ---
 # This playbook deploys the whole birdhouse application stack in this site. 
 
+- name: prepare system
+  hosts: local
+  remote_user: pingu
+  become: yes
+  become_user: root
+  roles:
+    - common
+
 - name: install birdhouse
   hosts: local
   remote_user: pingu
   become: yes
   become_user: birdhouse
   roles: 
-    - common
     - emu
     - hummingbird
     - malleefowl
