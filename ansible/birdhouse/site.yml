@@ -9,7 +9,7 @@
   roles: 
     - common
     - emu
-#    - hummingbird
-#    - malleefowl
-#    - phoenix
+    - hummingbird
+    - malleefowl
+    - phoenix
 
