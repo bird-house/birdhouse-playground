@@ -1,0 +1,15 @@
+[demo-wpsservers]
+adelie.d.dkrz.de
+
+[demo-webservers]
+adelie.d.dkrz.de
+
+[wpsservers:children]
+demo-wpsservers
+
+[webservers:children]
+demo-webservers
+
+[demo:children]
+demo-wpsservers
+demo-webservers
