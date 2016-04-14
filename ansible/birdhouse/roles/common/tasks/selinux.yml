@@ -1,0 +1,5 @@
+---
+# This playbook configures selinux
+
+- name: Disable SELinux
+  selinux: state=disabled
