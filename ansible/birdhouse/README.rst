@@ -14,7 +14,12 @@ Run the ansible playbook with a user who has sudo privileges:
 
 .. code:: bash
 
-   $ ansible-playbook -i hosts site.yml -u myuser --ask-become-pass
+   $ ansible-playbook -i hosts site.yml -u myuser --ask-pass --ask-become-pass
+
+Further Infos
+=============
+
+* http://docs.ansible.com/
 
 
 

@@ -1,0 +1,7 @@
+---
+# This playbook configures the local iptables
+- name: Create the iptables file
+  template: src=iptables dest=/etc/sysconfig/iptables
+  notify: restart iptables
+  when: ansible_distribution == "CentOS"
+

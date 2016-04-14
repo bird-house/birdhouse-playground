@@ -1,3 +1,12 @@
 ---
-- name: restart supervisor
+- name: restart supervisor (Debian)
   service: name=supervisor state=restarted
+  when: ansible_distribution == "Debian"
+
+- name: restart supervisor (CentOS)
+  service: name=supervisord state=restarted
+  when: ansible_distribution == "CentOS"
+
+- name: restart iptables
+  service: name=iptables state=restarted
+  when: ansible_distribution == "CentOS"
