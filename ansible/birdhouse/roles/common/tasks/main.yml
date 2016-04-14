@@ -6,6 +6,30 @@
 - name: Add user "birdhouse"
   user: name=birdhouse group=birdhouse home=/home/birdhouse
 
+- name: Install essential packages (Debian)
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+  when: ansible_distribution == "Debian"
+
+- name: Install essential packages (CentOS)
+  yum: name={{ item }} state=present
+  with_items:
+    - epel-release
+    - gcc-c++
+  when: ansible_distribution == "CentOS"
+
+- name: Install essential packages
+  package: name={{ item }} state=present
+  with_items:
+    - wget
+    - curl
+    - make
+    - tar
+    - bzip2
+    - unzip
+    - vim-common
+ 
 - name: Install supervisor
   package: name=supervisor state=latest
   tags: supervisor
