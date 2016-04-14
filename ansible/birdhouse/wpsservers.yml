@@ -1,0 +1,18 @@
+---
+# This playbook deploys the wps application stack on this site. 
+
+# Apply common configuration to hosts
+- hosts: wpsservers
+  become: yes
+  become_user: root
+  roles:
+    - common
+
+# Configure and deploy WPS processing servers.
+- hosts: wpsservers
+  become: yes
+  become_user: birdhouse
+  roles: 
+    - emu
+    - hummingbird
+    - malleefowl

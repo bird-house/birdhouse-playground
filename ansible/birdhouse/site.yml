@@ -1,29 +1,4 @@
 ---
 # This playbook deploys the whole birdhouse application stack in this site. 
-
-# Apply common configuration to all hosts
-- name: Prepare system
-  hosts: all
-  become: yes
-  become_user: root
-  roles:
-    - common
-
-# Configure and deploy WPS processing servers.
-- name: Deploy processing servers
-  hosts: wpsservers
-  become: yes
-  become_user: birdhouse
-  roles: 
-    - emu
-    - hummingbird
-    - malleefowl
-
-# Configure and deploy frontend web servers.
-- name: Deploy frontend web servers
-  hosts: webservers
-  become: yes
-  become_user: birdhouse
-  roles: 
-    - phoenix
-
+- include: wpsservers.yml
+- include: webservers.yml
