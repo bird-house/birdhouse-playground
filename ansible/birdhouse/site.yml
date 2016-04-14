@@ -1,16 +1,18 @@
 ---
 # This playbook deploys the whole birdhouse application stack in this site. 
 
-- name: prepare system
-  hosts: local
+# Apply common configuration to all hosts
+- name: Prepare system
+  hosts: all
   remote_user: pingu
   become: yes
   become_user: root
   roles:
     - common
 
-- name: install birdhouse
-  hosts: local
+# Configure and deploy WPS processing servers.
+- name: Deploy processing servers
+  hosts: processing
   remote_user: pingu
   become: yes
   become_user: birdhouse
@@ -18,5 +20,13 @@
     - emu
     - hummingbird
     - malleefowl
+
+# Configure and deploy frontend web servers.
+- name: Deploy frontend web servers
+  hosts: frontend
+  remote_user: pingu
+  become: yes
+  become_user: birdhouse
+  roles: 
     - phoenix
 

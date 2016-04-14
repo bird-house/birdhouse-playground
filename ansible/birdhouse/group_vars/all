@@ -5,14 +5,4 @@ server_hostname: localhost
 log_level: INFO
 birdhouse_home: /home/birdhouse
 prefix: "{{ birdhouse_home}}/.conda/envs/birdhouse"
-
-# phoenix only
-http_port: 80
-https_port: 443
 user: birdhouse
-# run 'make passwd' and to generate password hash
-phoenix_password: sha256:cc5397c59f47:24f865fed8dbaaa643ed3b5b65d9081a4d40d1cbbbf398883125c9891bc5fa23
-# generate secret
-# python -c "import os; print(''.join('%02x' % ord(x) for x in os.urandom(16)))"
-phoenix_secret: be74d7688ffac671782402a90b65203f
-esgf_search_url: https://esgf-data.dkrz.de/esg-search
