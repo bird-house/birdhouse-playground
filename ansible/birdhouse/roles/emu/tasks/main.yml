@@ -1,5 +1,6 @@
 ---
 # This playbook installs the emu WPS service.
+# TODO: when install has failed or anaconda is broken then run make install again
 
 - name: git clone emu
   git: repo=https://github.com/bird-house/emu dest=emu force=yes
