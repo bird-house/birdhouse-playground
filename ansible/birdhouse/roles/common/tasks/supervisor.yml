@@ -8,10 +8,11 @@
 - name: Configure SELinux to start supervisor on any port
   seboolean: name=httpd_can_network_connect state=true persistent=yes
   when: ansible_selinux.status == "enabled"
+  tags: supervisor
 
 - name: Configure supervisor (Debian)
-  template: src=supervisord.conf dest=/etc/supervisor/supervisord.conf
   tags: supervisor
+  template: src=supervisord.conf dest=/etc/supervisor/supervisord.conf
   notify: restart supervisor
   when: ansible_distribution == "Debian"
 
@@ -19,14 +20,16 @@
   template: src=supervisord.conf dest=/etc/supervisord.conf
   tags: supervisor
   notify: restart supervisor
-  when: ansible_distribution == "Centos"
-
-- name: Start the supervisor service (Centos)
-  service: name=supervisord state=started enabled=yes
-  tags: supervisor
-  when: ansible_distribution == "Centos"
+  when: ansible_distribution == "CentOS"
 
 - name: Start the supervisor service (Debian)
   service: name=supervisor state=started enabled=yes
   tags: supervisor
   when: ansible_distribution == "Debian"
+
+- name: Start the supervisor service (Centos)
+  service: name=supervisord state=started enabled=yes
+  tags: supervisor
+  when: ansible_distribution == "CentOS"
+
+
