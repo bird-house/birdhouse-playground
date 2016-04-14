@@ -1,0 +1,15 @@
+[bovec-wpsservers]
+bovec.dkrz.de
+
+[bovec-webservers]
+bovec.dkrz.de
+
+[wpsservers:children]
+bovec-wpsservers
+
+[webservers:children]
+bovec-webservers
+
+[bovec:children]
+bovec-wpsservers
+bovec-webservers

@@ -1,0 +1,4 @@
+---
+# Variables listed here are applicable to bovec host
+
+server_hostname: bovec.dkrz.de
