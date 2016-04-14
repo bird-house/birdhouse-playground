@@ -11,7 +11,7 @@
 
 # Configure and deploy WPS processing servers.
 - name: Deploy processing servers
-  hosts: processing
+  hosts: wpsservers
   become: yes
   become_user: birdhouse
   roles: 
@@ -21,7 +21,7 @@
 
 # Configure and deploy frontend web servers.
 - name: Deploy frontend web servers
-  hosts: frontend
+  hosts: webservers
   become: yes
   become_user: birdhouse
   roles: 

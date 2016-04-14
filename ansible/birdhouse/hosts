@@ -1,5 +1,15 @@
-[processing]
+[local-wpsservers]
 localhost
 
-[frontend]
+[local-webservers]
 localhost
+
+[wpsservers:children]
+local-wpsservers
+
+[webservers:children]
+local-webservers
+
+[local:children]
+local-wpsservers
+local-webservers
