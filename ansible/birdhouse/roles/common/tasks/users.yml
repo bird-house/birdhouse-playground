@@ -1,0 +1,9 @@
+---
+# This playbook setups the user for birdhouse
+
+- name: Add group "birdhouse"
+  group: name=birdhouse
+
+- name: Add user "birdhouse"
+  user: name=birdhouse group=birdhouse home=/home/birdhouse
+

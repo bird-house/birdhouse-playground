@@ -1,0 +1,15 @@
+---
+# This pllaybook installs supervisor
+
+- name: Install supervisor
+  package: name=supervisor state=latest
+  tags: supervisor
+
+- name: Configure supervisor
+  template: src=supervisord.conf dest=/etc/supervisor/supervisord.conf
+  tags: supervisor
+  notify: restart supervisor
+
+- name: Start the supervisor service
+  service: name=supervisor state=started enabled=yes
+  tags: supervisor
