@@ -2,6 +2,10 @@
 # Variables listed here are applicable to all host groups
 
 server_hostname: localhost
+http_port: 80
+https_port: 443
+wms_port: 8080
+output_port: 8090
 log_level: INFO
 birdhouse_home: /home/birdhouse
 prefix: "{{ birdhouse_home}}/.conda/envs/birdhouse"
