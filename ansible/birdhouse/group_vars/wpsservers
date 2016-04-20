@@ -1,0 +1,6 @@
+---
+# Variables listed here are applicable to wpsservers host groups
+
+# malleefowl only
+
+archive_root: 

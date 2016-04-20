@@ -11,9 +11,9 @@
 # Configure and deploy WPS processing servers.
 - hosts: wpsservers
   become: yes
-  become_user: birdhouse
+  become_user: {{ user }}
   roles: 
     - emu
-    - hummingbird
-    - flyingpigeon
-    - malleefowl
+#    - hummingbird
+#    - flyingpigeon
+#    - malleefowl
