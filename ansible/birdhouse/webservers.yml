@@ -11,7 +11,7 @@
 # Configure and deploy phoenix web server.
 - hosts: webservers
   become: yes
-  become_user: {{ user }}
+  become_user: "{{ user }}"
   roles: 
     - phoenix
 
