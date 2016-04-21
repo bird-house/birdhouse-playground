@@ -14,8 +14,8 @@
   become_user: "{{ user }}"
   roles: 
     - emu
-#    - hummingbird
-#    - flyingpigeon
-#    - malleefowl
+    - hummingbird
+    - flyingpigeon
+    - malleefowl
   environment:
     home: "(( birdhouse_home ))"
