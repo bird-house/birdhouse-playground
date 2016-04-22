@@ -14,4 +14,7 @@
   become_user: "{{ user }}"
   roles: 
     - phoenix
+  environment:
+    home: "(( birdhouse_home ))"
+
 
