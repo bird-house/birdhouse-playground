@@ -2,7 +2,7 @@
 # This playbook installs the phoenix web application.
 
 - name: git clone phoenix
-  git: repo=https://github.com/bird-house/pyramid-phoenix dest=pyramid-phoenix version=develop force=yes
+  git: repo=https://github.com/bird-house/pyramid-phoenix dest=pyramid-phoenix version=master force=yes
   register: git_phoenix
 
 - name: install phoenix
