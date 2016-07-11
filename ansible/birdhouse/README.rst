@@ -20,6 +20,7 @@ Install it with conda:
 .. code:: bash
 
     $ conda env create -f environment.yml
+    $ source activate ansible
 
 
 Run the playbooks
