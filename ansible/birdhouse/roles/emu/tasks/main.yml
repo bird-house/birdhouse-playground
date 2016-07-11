@@ -16,6 +16,10 @@
   template: src=custom.cfg dest="{{ src_dir }}/custom.cfg"
   register: config_emu
 
+- name: copy make configuration
+  template: src=Makefile.config dest="{{ src_dir }}/Makefile.config"
+  register: make_config_emu
+
 - name: update emu
   shell: cd "{{ src_dir }}/emu" && make update
   notify: restart emu
