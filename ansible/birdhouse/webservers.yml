@@ -6,7 +6,7 @@
   become_user: root
   roles:
     - common
-    - phoenix
+#    - phoenix
   environment:
     home: "(( birdhouse_home ))"
 

@@ -7,7 +7,7 @@ https_port: 443
 wms_port: 8080
 output_port: 8090
 log_level: WARN
-birdhouse_home: /opt/birdhouse/src
+src_dir: /opt/birdhouse/src
 prefix: /opt/birdhouse
 user: nobody
 etc_user: root

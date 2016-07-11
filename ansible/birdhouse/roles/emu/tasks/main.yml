@@ -4,20 +4,20 @@
 # TODO: need to restart nginx as well
 
 - name: git clone emu
-  git: repo=https://github.com/bird-house/emu dest=emu force=yes
+  git: repo=https://github.com/bird-house/emu dest="{{ src_dir }}/emu" force=yes
   register: git_emu
 
 - name: install emu
-  shell: cd emu && make clean && make install
+  shell: cd "{{ src_dir }}/emu" && make clean && make install
   notify: restart emu
   when: git_emu.changed
 
 - name: copy emu configuration
-  template: src=custom.cfg dest=emu/custom.cfg
+  template: src=custom.cfg dest="{{ src_dir }}/custom.cfg"
   register: config_emu
 
 - name: update emu
-  shell: cd emu && make update
+  shell: cd "{{ src_dir }}/emu" && make update
   notify: restart emu
   when: config_emu.changed
 

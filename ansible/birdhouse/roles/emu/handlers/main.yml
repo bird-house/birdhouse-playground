@@ -1,3 +1,3 @@
 ---
 - name: restart emu
-  supervisorctl: name=emu state=restarted server_url=http://localhost:9001
+  #supervisorctl: name=emu state=restarted server_url=http://localhost:9001
