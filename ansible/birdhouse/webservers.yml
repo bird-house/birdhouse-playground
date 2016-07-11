@@ -1,18 +1,11 @@
 ---
 # This playbook deploys the phoenix web application on this site. 
 
-# Apply common configuration to hosts
 - hosts: webservers
   become: yes
   become_user: root
   roles:
     - common
-
-# Configure and deploy phoenix web server.
-- hosts: webservers
-  become: yes
-  become_user: "{{ user }}"
-  roles: 
     - phoenix
   environment:
     home: "(( birdhouse_home ))"
