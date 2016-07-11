@@ -1,3 +1,4 @@
 ---
 - name: restart emu
+  shell: cd "{{ src_dir }}/emu" && make restart
   #supervisorctl: name=emu state=restarted server_url=http://localhost:9001

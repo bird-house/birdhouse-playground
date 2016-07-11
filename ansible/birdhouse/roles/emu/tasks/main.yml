@@ -1,27 +1,26 @@
 ---
 # This playbook installs the emu WPS service.
 # TODO: when install has failed or anaconda is broken then run make install again
-# TODO: need to restart nginx as well
 
 - name: git clone emu
   git: repo=https://github.com/bird-house/emu dest="{{ src_dir }}/emu" force=yes
   register: git_emu
 
-- name: install emu
-  shell: cd "{{ src_dir }}/emu" && make clean && make install
-  notify: restart emu
-  when: git_emu.changed
-
 - name: copy emu configuration
-  template: src=custom.cfg dest="{{ src_dir }}/custom.cfg"
+  template: src=custom.cfg dest="{{ src_dir }}/emu/custom.cfg"
   register: config_emu
 
 - name: copy make configuration
-  template: src=Makefile.config dest="{{ src_dir }}/Makefile.config"
-  register: make_config_emu
+  template: src=Makefile.config dest="{{ src_dir }}/emu/Makefile.config"
+  register: config_emu
 
-- name: update emu
-  shell: cd "{{ src_dir }}/emu" && make update
+- name: install emu
+  shell: cd "{{ src_dir }}/emu" && make clean && make install
   notify: restart emu
-  when: config_emu.changed
+#  when: git_emu.changed
+
+#- name: update emu
+#  shell: cd "{{ src_dir }}/emu" && make update
+#  notify: restart emu
+#  when: config_emu.changed
 
