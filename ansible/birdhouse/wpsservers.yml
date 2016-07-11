@@ -7,5 +7,3 @@
   roles:
     - common
     - emu
-  environment:
-    home: "(( birdhouse_home ))"

@@ -7,7 +7,5 @@
   roles:
     - common
 #    - phoenix
-  environment:
-    home: "(( birdhouse_home ))"
 
 
