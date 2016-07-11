@@ -2,7 +2,7 @@
 # Common playbook for birdhouse apps
 
 - include: packages.yml
-- include: selinux.yml
+#- include: selinux.yml
 #- include: iptables.yml
-- include: users.yml
-- include: supervisor.yml
+#- include: users.yml
+#- include: supervisor.yml
