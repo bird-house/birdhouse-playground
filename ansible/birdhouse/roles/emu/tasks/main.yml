@@ -6,7 +6,7 @@
   git: repo=https://github.com/bird-house/emu dest="{{ src_dir }}/emu" force=yes
   register: git_emu
 
-- name: copy emu configuration
+- name: copy buildout configuration
   template: src=custom.cfg dest="{{ src_dir }}/emu/custom.cfg"
   register: config_emu
 
