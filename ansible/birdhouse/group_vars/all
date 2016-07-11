@@ -10,5 +10,5 @@ log_level: WARN
 anaconda_home: /opt/anaconda
 src_dir: /opt/birdhouse/src
 prefix: /opt/birdhouse
-user: nobody
+user: www-data
 etc_user: root
