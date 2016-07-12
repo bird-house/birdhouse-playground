@@ -17,10 +17,10 @@
 - name: install emu
   shell: cd "{{ src_dir }}/emu" && make clean && make install
   notify: restart emu
-#  when: git_emu.changed
+  when: git_emu.changed
 
-#- name: update emu
-#  shell: cd "{{ src_dir }}/emu" && make update
-#  notify: restart emu
-#  when: config_emu.changed
+- name: update emu
+  shell: cd "{{ src_dir }}/emu" && make update
+  notify: restart emu
+  when: config_emu.changed
 
