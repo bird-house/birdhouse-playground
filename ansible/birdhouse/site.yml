@@ -16,6 +16,7 @@
     - emu
     - hummingbird
     - flyingpigeon
+    - malleefowl
 
 #- name: configure and deploy phoenix web server
 #  hosts: webservers
