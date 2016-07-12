@@ -1,15 +1,6 @@
-[local-wpsservers]
+[wpsservers]
 localhost
 
-[local-webservers]
+[webservers]
 localhost
 
-[wpsservers:children]
-local-wpsservers
-
-[webservers:children]
-local-webservers
-
-[local:children]
-local-wpsservers
-local-webservers

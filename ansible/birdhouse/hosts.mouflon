@@ -1,15 +1,6 @@
-[mouflon-wpsservers]
+[wpsservers]
 mouflon.dkrz.de
 
-[mouflon-webservers]
+[webservers]
 mouflon.dkrz.de
 
-[wpsservers:children]
-mouflon-wpsservers
-
-[webservers:children]
-mouflon-webservers
-
-[mouflon:children]
-mouflon-wpsservers
-mouflon-webservers
