@@ -9,7 +9,6 @@ This ansible playbook will deploy the following WPS service of birdhouse:
 * flyingpigeon
 * emu
 
-
 It also deploys the Phoenix web application which interacts with the WPS services.
 
 Install Ansible
