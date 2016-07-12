@@ -3,20 +3,24 @@
 # TODO: when install has failed or anaconda is broken then run make install again
 
 - name: git clone flyingpigeon
-  git: repo=https://github.com/bird-house/flyingpigeon dest=flyingpigeon force=yes
+  git: repo=https://github.com/bird-house/flyingpigeon dest="{{ src_dir }}/flyingpigeon" force=yes
   register: git_flyingpigeon
 
+- name: copy buildout configuration
+  template: src=custom.cfg dest="{{ src_dir }}/flyingpigeon/custom.cfg"
+  register: config_flyingpigeon
+
+- name: copy make configuration
+  template: src=Makefile.config dest="{{ src_dir }}/flyingpigeon/Makefile.config"
+  register: config_flyingpigeon
+
 - name: install flyingpigeon
-  shell: cd flyingpigeon && make clean && make install
+  shell: cd "{{ src_dir }}/flyingpigeon" && make clean && make install
   notify: restart flyingpigeon
   when: git_flyingpigeon.changed
 
-- name: copy flyingpigeon configuration
-  template: src=custom.cfg dest=flyingpigeon/custom.cfg
-  register: config_flyingpigeon
-
 - name: update flyingpigeon
-  shell: cd flyingpigeon && make update
+  shell: cd "{{ src_dir }}/flyingpigeon" && make update
   notify: restart flyingpigeon
   when: config_flyingpigeon.changed
 
