@@ -1,4 +1,4 @@
 ---
 - name: restart hummingbird
-  supervisorctl: name=hummingbird state=restarted server_url=http://localhost:9001
-  
+  shell: cd "{{ src_dir }}/hummingbird" && make restart
+  #supervisorctl: name=emu state=restarted server_url=http://localhost:9001

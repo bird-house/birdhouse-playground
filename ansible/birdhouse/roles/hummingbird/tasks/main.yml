@@ -1,21 +1,26 @@
 ---
-# This playbook installs the hummingbird WPS service.
+# This playbook installs the emu WPS service.
+# TODO: when install has failed or anaconda is broken then run make install again
 
 - name: git clone hummingbird
-  git: repo=https://github.com/bird-house/hummingbird dest=hummingbird force=yes
+  git: repo=https://github.com/bird-house/hummingbird dest="{{ src_dir }}/hummingbird" force=yes
   register: git_hummingbird
 
+- name: copy buildout configuration
+  template: src=custom.cfg dest="{{ src_dir }}/hummingbird/custom.cfg"
+  register: config_hummingbird
+
+- name: copy make configuration
+  template: src=Makefile.config dest="{{ src_dir }}/hummingbird/Makefile.config"
+  register: config_hummingbird
+
 - name: install hummingbird
-  shell: cd hummingbird && make clean && make install
+  shell: cd "{{ src_dir }}/hummingbird" && make clean && make install
   notify: restart hummingbird
   when: git_hummingbird.changed
 
-- name: copy hummingbird configuration
-  template: src=custom.cfg dest=hummingbird/custom.cfg
-  register: config_hummingbird
-
 - name: update hummingbird
-  shell: cd hummingbird && make update
+  shell: cd "{{ src_dir }}/hummingbird" && make update
   notify: restart hummingbird
   when: config_hummingbird.changed
 
