@@ -1,21 +1,26 @@
 ---
 # This playbook installs the malleefowl WPS service.
+# TODO: when install has failed or anaconda is broken then run make install again
 
 - name: git clone malleefowl
-  git: repo=https://github.com/bird-house/malleefowl dest=malleefowl force=yes
+  git: repo=https://github.com/bird-house/malleefowl dest="{{ src_dir }}/malleefowl" force=yes
   register: git_malleefowl
 
+- name: copy buildout configuration
+  template: src=custom.cfg dest="{{ src_dir }}/malleefowl/custom.cfg"
+  register: config_malleefowl
+
+- name: copy make configuration
+  template: src=Makefile.config dest="{{ src_dir }}/malleefowl/Makefile.config"
+  register: config_malleefowl
+
 - name: install malleefowl
-  shell: cd malleefowl && make clean && make install
+  shell: cd "{{ src_dir }}/malleefowl" && make clean && make install
   notify: restart malleefowl
   when: git_malleefowl.changed
 
-- name: copy malleefowl configuration
-  template: src=custom.cfg dest=malleefowl/custom.cfg
-  register: config_malleefowl
-
 - name: update malleefowl
-  shell: cd malleefowl && make update
+  shell: cd "{{ src_dir }}/malleefowl" && make update
   notify: restart malleefowl
   when: config_malleefowl.changed
 

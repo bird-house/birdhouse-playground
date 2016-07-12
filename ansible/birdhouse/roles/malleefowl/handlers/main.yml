@@ -1,3 +1,4 @@
 ---
-- name: restart malleefowl
-  supervisorctl: name=malleefowl state=restarted server_url=http://localhost:9001
+- name: restart emu
+  shell: cd "{{ src_dir }}/malleefowl" && make restart
+  #supervisorctl: name=malleefowl state=restarted server_url=http://localhost:9001
