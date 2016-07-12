@@ -1,4 +1,0 @@
----
-# Variables listed here are applicable to local host groups
-
-server_hostname: localhost
