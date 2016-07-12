@@ -15,7 +15,7 @@
   register: config
 
 - name: install
-  shell: cd "{{ src_dir }}/{{ service }}" && make clean && make install
+  shell: cd "{{ src_dir }}/{{ service }}" && make clean install || /bin/true
   notify: restart
 #  when: git.changed
 

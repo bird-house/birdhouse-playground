@@ -14,7 +14,7 @@
   become_user: root
   roles:
 #    - { role: bird, service: 'malleefowl',  http_port: 8091 } 
-#    - { role: bird, service: 'hummingbird',  http_port: 8092 } 
+    - { role: bird, service: 'hummingbird',  http_port: 8092, tags: ['wps', 'hummingbird'] } 
 #    - { role: bird, service: 'flyingpigeon',  http_port: 8093 } 
     - { role: bird, service: 'emu',  http_port: 8094, tags: ['wps', 'emu'] }
     
