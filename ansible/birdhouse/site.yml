@@ -19,9 +19,9 @@
     - { role: bird, service: 'emu',  http_port: 8094 }
     
 
-#- name: configure and deploy phoenix web server
-#  hosts: webservers
-#  become: yes
-#  become_user: root
-#  roles:
-#     - { role: bird, service: 'pyramid-phoenix' } 
+- name: configure and deploy phoenix web server
+  hosts: webservers
+  become: yes
+  become_user: root
+  roles:
+     - { role: bird, service: 'pyramid-phoenix' } 

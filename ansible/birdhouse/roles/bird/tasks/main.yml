@@ -7,7 +7,7 @@
   register: git
 
 - name: copy buildout configuration
-  template: src=custom.cfg dest="{{ src_dir }}/{{ service }}/custom.cfg"
+  template: src={{ service }}.cfg dest="{{ src_dir }}/{{ service }}/custom.cfg"
   register: config
 
 - name: copy make configuration
