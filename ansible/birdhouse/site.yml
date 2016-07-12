@@ -19,9 +19,9 @@
     - { role: bird, service: 'emu',  http_port: 8094, tags: ['wps', 'emu'] }
     
 
-- name: configure and deploy phoenix web server
+- name: configure and deploy phoenix wps frontend
   hosts: phoenix
   become: yes
   become_user: root
   roles:
-#     - { role: bird, service: 'pyramid-phoenix' } 
+     - { role: bird, service: 'pyramid-phoenix', tags: ['phoenix'] } 
