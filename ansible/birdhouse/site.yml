@@ -1,4 +1,23 @@
 ---
-# This playbook deploys the whole birdhouse application stack in this site. 
-- include: wpsservers.yml
-- include: webservers.yml
+# This playbook deploys the whole birdhouse application stack on this site. 
+
+- name: apply common configuration to all nodes
+  hosts: all
+  become: yes
+  become_user: root
+  roles:
+    - common
+
+- name: configure and deploy WPS servers
+  hosts: wpsservers
+  become: yes
+  become_user: root
+  roles:
+    - emu
+
+#- name: configure and deploy phoenix web server
+#  hosts: webservers
+#  become: yes
+#  become_user: root
+#  roles:
+#     - phoenix

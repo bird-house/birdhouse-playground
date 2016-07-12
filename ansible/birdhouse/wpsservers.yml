@@ -1,9 +1,0 @@
----
-# This playbook deploys the wps application stack on this site. 
-
-- hosts: wpsservers
-  become: yes
-  become_user: root
-  roles:
-    - common
-    - emu

@@ -1,15 +1,5 @@
-[adelie-wpsservers]
+[wpsservers]
 adelie.d.dkrz.de
 
-[adelie-webservers]
+[webservers]
 adelie.d.dkrz.de
-
-[wpsservers:children]
-adelie-wpsservers
-
-[webservers:children]
-adelie-webservers
-
-[adelie:children]
-adelie-wpsservers
-adelie-webservers
