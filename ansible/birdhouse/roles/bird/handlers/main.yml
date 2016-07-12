@@ -1,4 +1,4 @@
 ---
 - name: restart
-  shell: cd "{{ src_dir }}/{{ service }}" && make restart || /bin/true
+  shell: cd "{{ src_dir }}/{{ service }}" && make restart
   #supervisorctl: name=emu state=restarted server_url=http://localhost:9001
