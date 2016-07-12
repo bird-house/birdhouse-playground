@@ -13,15 +13,15 @@
   become: yes
   become_user: root
   roles:
-    - { role: wpsserver, service: 'flyingpigeon',  http_port: 8091 } 
+    - { role: wpsserver, service: 'malleefowl',  http_port: 8091 } 
     - { role: wpsserver, service: 'hummingbird',  http_port: 8092 } 
     - { role: wpsserver, service: 'flyingpigeon',  http_port: 8093 } 
     - { role: wpsserver, service: 'emu',  http_port: 8094 }
     
 
-#- name: configure and deploy phoenix web server
-#  hosts: webservers
-#  become: yes
-#  become_user: root
-#  roles:
-#     - phoenix
+- name: configure and deploy phoenix web server
+  hosts: webservers
+  become: yes
+  become_user: root
+  roles:
+     - phoenix

@@ -2,20 +2,24 @@
 # This playbook installs the phoenix web application.
 
 - name: git clone phoenix
-  git: repo=https://github.com/bird-house/pyramid-phoenix dest=pyramid-phoenix version=master force=yes
-  register: git_phoenix
+  git: repo=https://github.com/bird-house/pyramid-phoenix dest={{ src_dir }}/phoenix version=master force=yes
+  register: git
+
+- name: copy buildout configuration
+  template: src=custom.cfg dest={{ src_dir }}/phoenix/custom.cfg
+  register: config
+
+- name: copy make configuration
+  template: src=Makefile.config dest="{{ src_dir }}/phoenix/Makefile.config"
+  register: config
 
 - name: install phoenix
-  shell: cd pyramid-phoenix && make clean && make install
-  notify: restart phoenix
-  when: git_phoenix.changed
-
-- name: copy phoenix configuration
-  template: src=custom.cfg dest=pyramid-phoenix/custom.cfg
-  register: config_phoenix
+  shell: cd {{ src_dir }}/phoenix && make clean && make install
+  notify: restart
+  when: git.changed
 
 - name: update phoenix
-  shell: cd pyramid-phoenix && make update
-  notify: restart phoenix
-  when: config_phoenix.changed
+  shell: cd {{ src_dir }}/phoenix && make update
+  notify: restart
+  when: config.changed
 
