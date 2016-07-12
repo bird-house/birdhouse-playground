@@ -3,7 +3,7 @@
 # TODO: when install has failed or anaconda is broken then run make install again
 
 - name: git clone
-  git: repo=https://github.com/bird-house/emu dest={{ src_dir }}/{{ service }} force=yes
+  git: repo=https://github.com/bird-house/{{ service }} dest={{ src_dir }}/{{ service }} force=yes
   register: git
 
 - name: copy buildout configuration
@@ -15,7 +15,7 @@
   register: config
 
 - name: install
-  shell: cd "{{ src_dir }}/{{ service }}" && make clean install || /bin/true
+  shell: cd "{{ src_dir }}/{{ service }}" && make clean install 
   notify: restart
 #  when: git.changed
 
