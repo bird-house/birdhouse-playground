@@ -1,4 +1,0 @@
----
-- name: restart
-  shell: cd "{{ src_dir }}/phoenix" && make restart
-  #supervisorctl: name=phoenix state=restarted server_url=http://localhost:9001
