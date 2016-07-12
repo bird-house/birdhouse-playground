@@ -2,6 +2,4 @@
 # Variables listed here are applicable to mouflon host
 
 server_hostname: mouflon.dkrz.de
-user: birdhouse
-birdhouse_home: /home/birdhouse
-prefix: "{{ birdhouse_home}}/.conda/envs/birdhouse"
+user: nobody
