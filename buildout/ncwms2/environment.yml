@@ -1,4 +1,4 @@
-name: ncwms
+name: ncwms2
 channels:
   - defaults
   - birdhouse
@@ -8,5 +8,6 @@ dependencies:
   - curl=7.49.0 
   - pyopenssl=0.16.0 
   - cryptography=1.4
+  - pyyaml
 # ncwms
-  - ncwms=2.0.4
+  - ncwms2=2.0.4
