@@ -1,0 +1,12 @@
+name: ncwms
+channels:
+  - defaults
+  - birdhouse
+dependencies:
+  - python=2.7.12 
+  - setuptools=23.0.0
+  - curl=7.49.0 
+  - pyopenssl=0.16.0 
+  - cryptography=1.4
+# ncwms
+  - ncwms=2.0.4
