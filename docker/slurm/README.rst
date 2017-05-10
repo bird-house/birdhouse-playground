@@ -15,4 +15,4 @@ How to build the image
 
 Build from this directory using the enclosed Dockerfile::
 
-    $ docker build -rm -t birdhouse/slurm .
+    $ docker build --rm -t birdhouse/slurm .
