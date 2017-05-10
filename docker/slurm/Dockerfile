@@ -33,5 +33,8 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 
 ENV PATH /opt/conda/bin:$PATH
 
+ADD environment.yml /root/environment.yml
+RUN conda env create -f /root/environment.yml
+
 EXPOSE 10389 22 6817 6818
 CMD [ "/usr/bin/supervisord" ]
