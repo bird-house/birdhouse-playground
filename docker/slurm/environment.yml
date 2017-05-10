@@ -1,0 +1,9 @@
+name: wps
+channels:
+- birdhouse
+- conda-forge
+- defaults
+dependencies:
+- python=2.7
+# wps
+- pywps=4.0.0
