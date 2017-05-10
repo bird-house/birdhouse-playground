@@ -8,7 +8,7 @@
 # image.
 #
 # Usage:
-# docker run -h docker.example.com -i -t  \
+# docker run -h slurm -i -t  \
 #            -p 10022:22                  \ # SSHD, SFTP
 #            -p 9618:9618                 \ # Slurm
 #            --rm birdhouse/slurm
@@ -21,6 +21,7 @@ FROM agaveapi/slurm
 
 MAINTAINER Birdhouse <wps@dkrz.de>
 
+ADD slurm/slurm.conf /etc/sysconfig/slurm/slurm.conf
 ADD supervisord.conf /etc/supervisord.conf
 
 EXPOSE 10389 22 6817 6818

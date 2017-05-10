@@ -1,4 +1,5 @@
 slurm:
+  hostname: slurm
   image: birdhouse/slurm
   ports:
     - "10022:22"
