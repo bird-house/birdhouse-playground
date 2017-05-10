@@ -1,0 +1,9 @@
+slurm:
+  image: birdhouse/slurm
+  ports:
+    - "10022:22"
+    - "9618:9618"
+#  volumes:
+#    - /tmp/data:/opt/birdhouse/var/lib
+#    - /tmp/log:/opt/birdhouse/var/log
+#  volume_driver: local
