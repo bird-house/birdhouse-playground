@@ -36,5 +36,14 @@ ENV PATH /opt/conda/bin:$PATH
 ADD environment.yml /root/environment.yml
 RUN conda env create -f /root/environment.yml
 
+RUN git clone https://github.com/bird-house/emu.git && \
+  cd emu && \
+  git checkout develop && \
+  source activate wps && \
+  python setup.py install
+
+RUN mkdir /opt/birdhouse && chown -R testuser:testuser /opt/birdhouse
+VOLUME [ "/opt/birdhouse" ]
+
 EXPOSE 10389 22 6817 6818
 CMD [ "/usr/bin/supervisord" ]
