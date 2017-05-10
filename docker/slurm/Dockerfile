@@ -17,7 +17,7 @@
 #
 ######################################################
 
-FROM agaveapi/centos-base
+FROM agaveapi/slurm
 
 MAINTAINER Birdhouse <wps@dkrz.de>
 
