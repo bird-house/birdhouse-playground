@@ -14,7 +14,7 @@ How to use this image
 
 Run the container::
 
-  $ docker run -h slurm -it -p 10022:22 --rm birdhouse/slurm
+  $ docker run -h slurm -p 10022:22 --rm birdhouse/slurm
 
 Start with docker compose::
 
