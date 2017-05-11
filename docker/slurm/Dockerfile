@@ -26,8 +26,7 @@ RUN yum install -y yum-plugin-ovl
 RUN yum -y install wget vim
 
 # Add wps user
-RUN groupadd -g 1000 wps && \
-  adduser wps --uid 1000 --gid 1000 && \
+RUN adduser wps --uid 33 --gid 33 && \
   echo "wps:wps" | chpasswd
 USER wps
 RUN mkdir /home/wps/.ssh
@@ -58,8 +57,10 @@ RUN git clone https://github.com/bird-house/emu.git && \
   python setup.py install
 
 # create birdhouse install directory
-RUN mkdir /opt/birdhouse && chown -R wps:wps /opt/birdhouse
-VOLUME [ "/opt/birdhouse" ]
+RUN mkdir -p /opt/birdhouse && chown -R wps /opt/birdhouse
+VOLUME /opt/birdhouse/var/lib
+VOLUME /opt/birdhouse/var/log
+VOLUME /opt/birdhouse/etc
 
 EXPOSE 10389 22 6817 6818
 CMD [ "/usr/bin/supervisord" ]
