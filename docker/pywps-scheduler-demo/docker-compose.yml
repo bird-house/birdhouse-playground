@@ -1,5 +1,5 @@
 emu:
-  image: birdhouse/emu
+  image: birdhouse/pywps-scheduler-demo
   hostname: localhost
   environment:
     HOSTNAME: localhost
