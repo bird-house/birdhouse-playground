@@ -1,0 +1,13 @@
+emu:
+  image: birdhouse/emu
+  hostname: emu
+  environment:
+    HOSTNAME: emu
+  ports:
+    - "8080:8080"
+    - "8000:8000"
+  volumes:
+    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
+    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
+    - /opt/birdhouse/etc:/opt/birdhouse/etc
+  volume_driver: local
