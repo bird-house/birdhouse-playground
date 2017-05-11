@@ -4,6 +4,6 @@ slurm:
   ports:
     - "10022:22"
     - "9618:9618"
-#  volumes:
-#    - /tmp/data:/opt/birdhouse/
-#  volume_driver: local
+  volumes:
+    - /opt/birdhouse:/opt/birdhouse/
+  volume_driver: local
