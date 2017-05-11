@@ -21,6 +21,7 @@ FROM agaveapi/slurm
 
 MAINTAINER Birdhouse <wps@dkrz.de>
 
+RUN yum install -y yum-plugin-ovl
 RUN yum -y install wget vim
 
 ADD slurm/slurm.conf /etc/sysconfig/slurm/slurm.conf
