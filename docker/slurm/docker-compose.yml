@@ -3,7 +3,8 @@ slurm:
   image: birdhouse/slurm
   ports:
     - "10022:22"
-    - "9618:9618"
   volumes:
-    - /opt/birdhouse:/opt/birdhouse/
+    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
+    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
+    - /opt/birdhouse/etc:/opt/birdhouse/etc
   volume_driver: local
