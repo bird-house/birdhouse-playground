@@ -5,17 +5,24 @@ PyWPS Demo with Slurm scheduler
 How to run the demo
 *******************
 
+Prepare the demo
+-----------------
+
 First get this demo from github::
 
   $ git clone https://github.com/bird-house/birdhouse-playground.git
 
-Change in to the docker pywps-scheduler-demo directory::
+Change in to the docker ``pywps-scheduler-demo`` directory::
 
   $ cd birdhouse-playground/docker/pywps-scheduler-demo
 
 Get docker images using docker-compose::
 
   $ docker-compose pull
+
+
+Run the demo with docker
+------------------------
 
 Start the demo with docker-compose::
 
@@ -29,7 +36,7 @@ Run a "hello" to see if the service is responding::
 
   $ firefox "http://localhost:8080/wps?service=wps&request=Execute&version=1.0.0&identifier=hello&datainputs=name=Friday"
 
-This process was run synchronously and was executed on the WPS server.
+This process was run synchronously and was executed on the WPS server itself.
 
 Now, we run a "sleep" process in async mode which will be delegated to the Slurm server::
 
@@ -59,7 +66,7 @@ Hopefully you will get a status response looking like this:
   </wps:Status>
   </wps:ExecuteResponse>
 
-Poll the status location link given in this document::
+Poll the status location link given in this document, for example::
 
   $ firefox "http://localhost:8000/wpsoutputs/emu/ae284b7e-3708-11e7-8c84-0242ac110003.xml"
 
@@ -78,12 +85,32 @@ You might get the following response:
     </wps:Status>
   </wps:ExecuteResponse>
 
+Poll this status document until the process is completed (hopefully successfully).
 
-Using birdy::
+Check also the log files and watch out for "Submitting job to slurm"::
+
+  $ less /opt/birdhouse/var/log/pywps/emu.log
+
+Use birdy wps client
+--------------------
+
+To have some more convenience you can use the birdy WPS commandline client.
+
+Install it via the conda package manager::
+
+  $ conda install -c birdhouse -c conda-forge birdhouse-birdy
+
+Configure the WPS service::
 
   $ export WPS_SERVICE=http://localhost:8080/wps
+
+Now, run the birdy on some example processes::
+
   $ birdy -h
-  $ birdy sleep --delay 2
+  $ birdy hello -h
+  $ birdy hello --name Birdy
+  $ birdy sleep --delay 5
+  # check the logs .... notice the message "Submitting job to slurm"
   $ less /opt/birdhouse/var/log/pywps/emu.log
 
 
