@@ -1,11 +1,13 @@
-emu:
+wps:
   image: birdhouse/pywps-scheduler-demo
   hostname: localhost
   environment:
     HOSTNAME: localhost
+    HTTP_PORT: 5000
+    OUTPUT_PORT: 5001
   ports:
-    - "8080:8080"
-    - "8000:8000"
+    - "5000:5000"
+    - "5001:5001"
   links:
     - slurm
   volumes_from:
