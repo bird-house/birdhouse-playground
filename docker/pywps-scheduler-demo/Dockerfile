@@ -2,7 +2,7 @@
 FROM birdhouse/emu:latest
 MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/docker/pywps-scheduler-demo
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.1"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.2"
 
 # change user home
 RUN usermod -m -d /home/demo www-data && \
