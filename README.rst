@@ -6,4 +6,4 @@ Prepare Birdhouse Components and Compositions for Deployment (Docker, Ansible, B
 What you can find here
 ----------------------
 
-* A PyWPS Demo using Slurm scheduler using docker container (``docker/pywps-scheduler-demo), see :ref:`pywps-scheduler-demo`. 
+* A PyWPS Demo using Slurm scheduler using docker container (folder ``docker/pywps-scheduler-demo``), see :ref:`pywps-scheduler-demo`. 
