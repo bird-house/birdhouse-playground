@@ -38,7 +38,7 @@ Run the demo with docker
 Start the demo with docker-compose::
 
   $ docker-compose up -d  # runs with -d in the background
-  $ docker-compose logs   # check the logs if running in background
+  $ docker-compose logs -f  # check the logs if running in background
 
 By default the WPS service should be available on port 5000::
 
