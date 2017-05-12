@@ -4,10 +4,12 @@
 PyWPS Demo with Slurm scheduler
 *******************************
 
-This is a demo to show how a PyWPS service can use a batch job scheduler like Slurm for job delegation.
+This is a demo to show how a `PyWPS`_ service can use a batch job scheduler like Slurm for job delegation.
 The demo is using docker with two linked containers, a WPS service container and a Slurm container.
 Both containers share a common filesystem (docker volume) with the path ``/opt/birdhouse``.
-The WPS service uses ssh to start a Slurm batch job in the Slurm service.
+The WPS service uses ssh to start a Slurm batch job on the Slurm server.
+
+.. _`PyWPS`: http://pywps.org/
 
 How to run the demo
 *******************
@@ -52,6 +54,7 @@ Now, we run a "sleep" process in async mode which will be delegated to the Slurm
 Hopefully you will get a status response looking like this:
 
 .. code-block:: xml
+  :emphasize-lines: 10
 
   <!-- PyWPS 4.0.0 -->
   <wps:ExecuteResponse xmlns:gml="http://www.opengis.net/gml"
@@ -80,6 +83,7 @@ Poll the status location link given in this document, for example::
 You might get the following response:
 
 .. code-block:: xml
+  :emphasize-lines: 8
 
   <wps:ExecuteResponse xmlns:gml="http://www.opengis.net/gml" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd" service="WPS" version="1.0.0" xml:lang="en-US" serviceInstance="http://localhost:8080/wps?service=WPS&amp;request=GetCapabilities" statusLocation="http://localhost:8000/wpsoutputs/emu/cc6410fe-3709-11e7-8c84-0242ac110003.xml">
     <wps:Process wps:processVersion="1.0">
