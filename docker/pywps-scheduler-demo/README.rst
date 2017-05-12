@@ -29,6 +29,8 @@ Get docker images using docker-compose::
 
   $ docker-compose pull
 
+The docker-compose uses ``/opt/birdhouse`` as mount point for the container volume.
+
 
 Run the demo with docker
 ------------------------
