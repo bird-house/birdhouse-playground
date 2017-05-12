@@ -37,7 +37,8 @@ Run the demo with docker
 
 Start the demo with docker-compose::
 
-  $ docker-compose up -d # runs with -d in the background
+  $ docker-compose up -d  # runs with -d in the background
+  $ docker-compose logs   # check the logs if running in background
 
 By default the WPS service should be available on port 8080::
 
@@ -123,6 +124,13 @@ Now, run the birdy on some example processes::
   $ birdy sleep --delay 5
   # check the logs .... notice the message "Submitting job to slurm"
   $ less /opt/birdhouse/var/log/pywps/emu.log
+
+Finally ... shutdown
+---------------------
+
+Use docker-compose to stop the containers::
+
+  $ docker-compose down
 
 
 How to build the demo image
