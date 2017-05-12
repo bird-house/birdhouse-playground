@@ -1,3 +1,5 @@
+.. _pywps-scheduler-demo:
+
 *******************************
 PyWPS Demo with Slurm scheduler
 *******************************
