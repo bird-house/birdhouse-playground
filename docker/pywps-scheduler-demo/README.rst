@@ -54,7 +54,6 @@ Now, we run a "sleep" process in async mode which will be delegated to the Slurm
 Hopefully you will get a status response looking like this:
 
 .. code-block:: xml
-  :emphasize-lines: 3,5
 
   <!-- PyWPS 4.0.0 -->
   <wps:ExecuteResponse xmlns:gml="http://www.opengis.net/gml"
@@ -83,7 +82,6 @@ Poll the status location link given in this document, for example::
 You might get the following response:
 
 .. code-block:: xml
-  :emphasize-lines: 3,5
 
   <wps:ExecuteResponse xmlns:gml="http://www.opengis.net/gml" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd" service="WPS" version="1.0.0" xml:lang="en-US" serviceInstance="http://localhost:8080/wps?service=WPS&amp;request=GetCapabilities" statusLocation="http://localhost:8000/wpsoutputs/emu/cc6410fe-3709-11e7-8c84-0242ac110003.xml">
     <wps:Process wps:processVersion="1.0">
