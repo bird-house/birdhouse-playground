@@ -40,19 +40,19 @@ Start the demo with docker-compose::
   $ docker-compose up -d  # runs with -d in the background
   $ docker-compose logs   # check the logs if running in background
 
-By default the WPS service should be available on port 8080::
+By default the WPS service should be available on port 5000::
 
-  $ firefox "http://localhost:8080/wps?service=wps&request=GetCapabilities"
+  $ firefox "http://localhost:5000/wps?service=wps&request=GetCapabilities"
 
 Run a "hello" to see if the service is responding::
 
-  $ firefox "http://localhost:8080/wps?service=wps&request=Execute&version=1.0.0&identifier=hello&datainputs=name=Friday"
+  $ firefox "http://localhost:5000/wps?service=wps&request=Execute&version=1.0.0&identifier=hello&datainputs=name=Friday"
 
 This process was run synchronously and was executed on the WPS server itself.
 
 Now, we run a "sleep" process in async mode which will be delegated to the Slurm server::
 
-  $ firefox "http://localhost:8080/wps?service=wps&request=Execute&version=1.0.0&identifier=sleep&datainputs=delay=10&storeExecuteResponse=true&status=true"
+  $ firefox "http://localhost:5000/wps?service=wps&request=Execute&version=1.0.0&identifier=sleep&datainputs=delay=10&storeExecuteResponse=true&status=true"
 
 Hopefully you will get a status response looking like this:
 
@@ -66,8 +66,8 @@ Hopefully you will get a status response looking like this:
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd"
     service="WPS" version="1.0.0" xml:lang="en-US"
-    serviceInstance="http://localhost:8080/wps?service=WPS&amp;request=GetCapabilities"
-    statusLocation="http://localhost:8000/wpsoutputs/emu/ae284b7e-3708-11e7-8c84-0242ac110003.xml">
+    serviceInstance="http://localhost:5000/wps?service=WPS&amp;request=GetCapabilities"
+    statusLocation="http://localhost:5001/wpsoutputs/emu/ae284b7e-3708-11e7-8c84-0242ac110003.xml">
   <wps:Process wps:processVersion="1.0">
     <ows:Identifier>sleep</ows:Identifier>
     <ows:Title>Sleep Process</ows:Title>
@@ -80,13 +80,21 @@ Hopefully you will get a status response looking like this:
 
 Poll the status location link given in this document, for example::
 
-  $ firefox "http://localhost:8000/wpsoutputs/emu/ae284b7e-3708-11e7-8c84-0242ac110003.xml"
+  $ firefox "http://localhost:5001/wpsoutputs/emu/ae284b7e-3708-11e7-8c84-0242ac110003.xml"
 
 You might get the following response:
 
 .. code-block:: xml
 
-  <wps:ExecuteResponse xmlns:gml="http://www.opengis.net/gml" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd" service="WPS" version="1.0.0" xml:lang="en-US" serviceInstance="http://localhost:8080/wps?service=WPS&amp;request=GetCapabilities" statusLocation="http://localhost:8000/wpsoutputs/emu/cc6410fe-3709-11e7-8c84-0242ac110003.xml">
+  <wps:ExecuteResponse xmlns:gml="http://www.opengis.net/gml"
+    xmlns:ows="http://www.opengis.net/ows/1.1"
+    xmlns:wps="http://www.opengis.net/wps/1.0.0"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd"
+    service="WPS" version="1.0.0" xml:lang="en-US"
+    serviceInstance="http://localhost:5000/wps?service=WPS&amp;request=GetCapabilities"
+    statusLocation="http://localhost:5001/wpsoutputs/emu/cc6410fe-3709-11e7-8c84-0242ac110003.xml">
     <wps:Process wps:processVersion="1.0">
       <ows:Identifier>sleep</ows:Identifier>
       <ows:Title>Sleep Process</ows:Title>
@@ -114,7 +122,7 @@ Install it via the conda package manager::
 
 Configure the WPS service::
 
-  $ export WPS_SERVICE=http://localhost:8080/wps
+  $ export WPS_SERVICE=http://localhost:5000/wps
 
 Now, run the birdy on some example processes::
 
