@@ -13,10 +13,10 @@ emu:
 slurm:
   hostname: slurm
   image: birdhouse/slurm
-  ports:
-    - "10022:22"
-  volumes:
-    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
-    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
-    - /opt/birdhouse/etc:/opt/birdhouse/etc
-  volume_driver: local
+#  ports:
+#    - "10022:22"
+#  volumes:
+#    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
+#    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
+#    - /opt/birdhouse/etc:/opt/birdhouse/etc
+#  volume_driver: local
