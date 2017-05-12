@@ -16,5 +16,8 @@ RUN chown -R www-data /home/wps
 # update emu wps config
 ADD custom.cfg /opt/birdhouse/src/emu/custom.cfg
 
+# copy start script
+COPY entrypoint.sh /entrypoint.sh
+
 # Start service ...
-CMD ["make", "update-config", "start"]
+CMD ["/entrypoint.sh"]
