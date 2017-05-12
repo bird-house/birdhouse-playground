@@ -13,3 +13,9 @@ set -o allexport
 make update-config
 # start supervisor service with wps and nginx
 make start
+# update ssh known_hosts
+echo "updating ssh known_hosts. please wait ..."
+sleep 10
+ssh-keyscan slurm > /home/demo/.ssh/known_hosts
+chown www-data /home/demo/.ssh/known_hosts
+echo "done."
