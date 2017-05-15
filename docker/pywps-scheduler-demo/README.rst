@@ -107,9 +107,6 @@ You might get the following response:
 
 Poll this status document until the process is completed (hopefully successfully).
 
-Check also the log files and watch out for "Submitting job to slurm"::
-
-  $ less /opt/birdhouse/var/log/pywps/emu.log
 
 Use birdy wps client
 --------------------
@@ -130,8 +127,7 @@ Now, run the birdy on some example processes::
   $ birdy hello -h
   $ birdy hello --name Birdy
   $ birdy sleep --delay 5
-  # check the logs .... notice the message "Submitting job to slurm"
-  $ less /opt/birdhouse/var/log/pywps/emu.log
+
 
 Finally ... shutdown
 ---------------------
