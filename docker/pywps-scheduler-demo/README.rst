@@ -128,13 +128,36 @@ Now, run the birdy on some example processes::
   $ birdy hello --name Birdy
   $ birdy sleep --delay 5
 
-
 Finally ... shutdown
 ---------------------
 
 Use docker-compose to stop the containers::
 
   $ docker-compose down
+
+Advanced steps ... mount /opt/birdhouse
+***************************************
+
+To see what is happening on wps/slurm processing you currently need to mount the
+``/opt/birdhouse`` filesystem::
+
+  # uncomment the volume section
+  $ vim docker-compose.yml
+  # prepare a mount point on your filesystem
+  $ sudo mkdir /opt/birdhouse
+  # change the permission
+  # the www-data of a debian system is used which has the uid=33
+  $ sudo chown www-data /opt/birdhouse
+
+We you start the docker containers as describe above you can the logs::
+
+  $ tail -f /opt/birdhouse/var/log/pywps/emu.log
+  $ tail -f /opt/birdhouse/var/log/supervisor/emu.log
+
+And the output and working directories (temp folders)::
+
+  $ ls /opt/birdhouse/var/lib/pywps/outputs/emu/
+  $ ls /opt/birdhouse/var/lib/pywps/tmp/emu/
 
 
 How to build the demo image
