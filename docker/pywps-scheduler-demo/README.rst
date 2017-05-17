@@ -149,7 +149,7 @@ To see what is happening on wps/slurm processing you currently need to mount the
   # the www-data of a debian system is used which has the uid=33
   $ sudo chown www-data /opt/birdhouse
 
-We you start the docker containers as described above you can watch the logs::
+When you start the docker containers as described above you can watch the logs::
 
   $ tail -f /opt/birdhouse/var/log/pywps/emu.log
   $ tail -f /opt/birdhouse/var/log/supervisor/emu.log
