@@ -4,12 +4,11 @@
 # Tag: birdhouse/slurm
 #
 # This container provides a standard Slurm controller
-# and worker created on top of the agaveapi/slurm
+# and worker created on top of the continuumio/miniconda
 # image.
 #
 # Usage:
 # docker run -h slurm -i -t  \
-#            -p 10022:22                  \ # SSHD, SFTP
 #            -p 9618:9618                 \ # Slurm
 #            --rm birdhouse/slurm
 #
@@ -17,33 +16,19 @@
 #
 ######################################################
 
-FROM agaveapi/slurm
+FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
 
-# update centos
-RUN yum install -y yum-plugin-ovl
-RUN yum -y install wget vim
+# update debian
+RUN apt-get update && \
+  apt-get install -y build-essential wget vim
 
-# Add wps user
-RUN adduser wps --uid 33 --gid 33 && \
-  echo "wps:wps" | chpasswd
-USER wps
-RUN mkdir /home/wps/.ssh
-ADD ssh/id_rsa.pub /home/wps/.ssh/authorized_keys
 USER root
 
 # update configs
 ADD slurm/slurm.conf /etc/sysconfig/slurm/slurm.conf
 ADD supervisord.conf /etc/supervisord.conf
-
-# install miniconda
-RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-  wget --quiet https://repo.continuum.io/miniconda/Miniconda2-4.3.11-Linux-x86_64.sh -O ~/miniconda.sh && \
-  /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-  rm ~/miniconda.sh
-
-ENV PATH /opt/conda/bin:$PATH
 
 # install pywps via conda
 ADD environment.yml /root/environment.yml
@@ -52,7 +37,6 @@ RUN conda env create -f /root/environment.yml
 # install emu wps
 RUN git clone https://github.com/bird-house/emu.git && \
   cd emu && \
-  git checkout develop && \
   source activate wps && \
   python setup.py install
 
@@ -62,5 +46,5 @@ VOLUME /opt/birdhouse/var/lib
 VOLUME /opt/birdhouse/var/log
 VOLUME /opt/birdhouse/etc
 
-EXPOSE 10389 22 6817 6818
+EXPOSE 6817 6818
 CMD [ "/usr/bin/supervisord" ]
