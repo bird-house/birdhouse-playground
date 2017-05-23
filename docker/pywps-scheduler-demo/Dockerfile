@@ -4,14 +4,18 @@ MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/docker
 
 LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.5"
 
-# change user home
+# install debian packages with slurm drmaa
+RUN apt-get update && \
+  apt-get install -y build-essential slurm-drmaa1 slurm-drmaa-dev
+
+# Install conda packages with drmaa
+RUN conda update -y conda && \
+  conda install -y -n emu drmaa
+
+# change demo user home
 RUN usermod -m -d /home/demo www-data && \
-  mkdir /home/demo
-#add ssh key to access slurm
-ADD ssh /home/demo/.ssh
-RUN chmod 600 /home/demo/.ssh/id_rsa && \
-  chmod 640 /home/demo/.ssh/id_rsa.pub
-RUN chown -R www-data /home/demo
+  mkdir /home/demo && \
+  chown -R www-data /home/demo
 
 # update emu wps config
 ADD custom.cfg /opt/birdhouse/src/emu/custom.cfg
