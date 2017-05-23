@@ -9,7 +9,7 @@
 #
 # Usage:
 # docker run -h slurm -i -t  \
-#            -p 9618:9618                 \ # Slurm
+#            -p 6818:6818                 \ # Slurm
 #            --rm birdhouse/slurm
 #
 # https://github.com/bird-house/birdhouse-playground/tree/master/docker/slurm
@@ -69,6 +69,13 @@ WORKDIR /root
 RUN git clone https://github.com/bird-house/emu.git
 WORKDIR /root/emu
 RUN /bin/bash -c "source activate wps && python setup.py install"
+
+# get pywps
+WORKDIR /root
+RUN git clone https://github.com/bird-house/pywps.git
+WORKDIR /root/pywps
+RUN  git checkout dev-scheduler
+RUN /bin/bash -c "source activate wps && conda remove -y pywps && python setup.py install"
 
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \
