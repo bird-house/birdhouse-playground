@@ -78,4 +78,4 @@ VOLUME /opt/birdhouse/var/log
 VOLUME /opt/birdhouse/etc
 
 EXPOSE 6817 6818
-CMD [ "/opt/conda/bin/supervisord -c /etc/supervisord.conf" ]
+CMD [ "/opt/conda/bin/supervisord",  "-c", "/etc/supervisord.conf" ]
