@@ -7,9 +7,10 @@ PyWPS Demo with Slurm scheduler
 This is a demo to show how a `PyWPS`_ service can use a batch job scheduler like Slurm for job delegation.
 The demo is using docker with two linked containers, a WPS service container and a Slurm container.
 Both containers share a common filesystem (docker volume) with the path ``/opt/birdhouse``.
-The WPS service uses ssh to start a Slurm batch job on the Slurm server.
+The WPS service uses the `DRMAA`_ Python library to start a Slurm batch job on the Slurm server.
 
 .. _`PyWPS`: http://pywps.org/
+.. _`DRMAA`: http://drmaa-python.readthedocs.io/en/latest/index.html
 
 How to run the demo
 *******************
@@ -166,3 +167,7 @@ How to build the demo image
 Build from this directory using the enclosed Dockerfile::
 
   $ docker build --rm -t birdhouse/pywps-scheduler-demo .
+
+Build the Slurm image::
+
+  https://github.com/bird-house/birdhouse-playground/tree/master/docker/slurm
