@@ -6,11 +6,11 @@ LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.2"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
-  apt-get install -y build-essential slurm-drmaa1 slurm-drmaa-dev
+  apt-get install -y build-essential slurm-drmaa1 slurm-drmaa-dev slurm-llnl
 
-# Install conda packages with drmaa
+# Install conda packages for scheduler extension
 RUN conda update -y conda && \
-  conda install -y -n emu drmaa
+  conda install -y -n emu drmaa dill
 
 # change demo user home
 RUN usermod -m -d /home/demo www-data && \

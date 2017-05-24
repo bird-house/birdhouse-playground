@@ -11,7 +11,7 @@ wps:
     # nginx output port
     - "5001:5001"
   links:
-    # uses ssh port 22 to communicate
+    # uses slurm port 6818 to communicate
     - slurm
   volumes_from:
     # shared volume /opt/birdhouse
@@ -20,7 +20,7 @@ slurm:
   hostname: slurm
   image: birdhouse/slurm
 #  ports:
-#    - "10022:22"
+#    - "6818:6818"
 # HINT: Unomment the following lines to mount /opt/birdhouse
 #  volumes:
 #    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
