@@ -1,8 +1,8 @@
 # vim:set ft=dockerfile:
 FROM birdhouse/emu:latest
-MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/docker/pywps-scheduler-demo
+MAINTAINER Birdhouse <wps@dkrz.de>
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.5"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.2"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
