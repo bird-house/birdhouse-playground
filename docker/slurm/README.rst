@@ -4,8 +4,9 @@ Slurm docker container
 This is a development install of the Slurm scheduler running as a controller and worker.
 This image is used as a single node cluster for testing purposes in birdhouse.
 
-The docker image is based on `agaveapi/slurm`_ with modifications for birdhouse.
+The docker image contains a Slurm scheduler and a PyWPS demo installed via conda.
 
+The Dockerfile is an adaption of `agaveapi/slurm`_.
 
 .. _agaveapi/slurm: https://hub.docker.com/r/agaveapi/slurm/
 
@@ -14,7 +15,7 @@ How to use this image
 
 Run the container::
 
-  $ docker run -h slurm -p 10022:22 --rm birdhouse/slurm
+  $ docker run -h slurm -p 6818:6818 --rm birdhouse/slurm
 
 Start with docker compose::
 
