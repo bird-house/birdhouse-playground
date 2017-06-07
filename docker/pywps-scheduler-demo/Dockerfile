@@ -2,7 +2,7 @@
 FROM birdhouse/emu:latest
 MAINTAINER Birdhouse <wps@dkrz.de>
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.2"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.3"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
@@ -10,7 +10,7 @@ RUN apt-get update && \
 
 # Install conda packages for scheduler extension
 RUN conda update -y conda && \
-  conda install -y -n emu drmaa dill
+  conda install -y -n emu -c birdhouse -c conda-forge pywps drmaa dill
 
 # change demo user home
 RUN usermod -m -d /home/demo www-data && \
