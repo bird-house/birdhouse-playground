@@ -1,0 +1,9 @@
+---
+- name: Create supervisor directory
+  file:
+    path: "{{ prefix }}/etc/supervisor"
+    state: directory
+    mode: 0755
+
+- name: Configure supervisor
+  template: src=supervisord.conf dest={{ prefix }}/etc/supervisor/supervisord.conf

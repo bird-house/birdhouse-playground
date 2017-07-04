@@ -1,0 +1,3 @@
+---
+- name: Create conda env.
+  shell: conda env create --force -f bird-environment.yml
