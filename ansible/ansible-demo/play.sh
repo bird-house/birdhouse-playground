@@ -1,2 +1,2 @@
 #!/bin/bash
-ansible-playbook site.yml
+ansible-playbook -c local site.yml
