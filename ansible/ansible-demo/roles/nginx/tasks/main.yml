@@ -5,6 +5,9 @@
     state: directory
     mode: 0755
 
+- name: Copy nginx supervisor configuration
+  template: src=supervisor.conf dest={{ prefix }}/etc/supervisor/conf.d/nginx.conf
+
 - name: Copy nginx configuration
   template: src=default.conf dest={{ prefix }}/etc/nginx/conf.d/default.conf
   notify: restart nginx

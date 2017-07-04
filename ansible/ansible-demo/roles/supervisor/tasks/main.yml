@@ -1,7 +1,7 @@
 ---
 - name: Create etc/supervisor directory
   file:
-    path: "{{ prefix }}/etc/supervisor"
+    path: "{{ prefix }}/etc/supervisor/conf.d"
     state: directory
     mode: 0755
 
