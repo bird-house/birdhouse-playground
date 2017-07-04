@@ -1,3 +1,6 @@
 ---
 # This playbook is used for ansible demo.
- 
+- hosts: localhost
+  tasks:
+    - name: Create conda env.
+      shell: conda env create -f bird-environment.yml
