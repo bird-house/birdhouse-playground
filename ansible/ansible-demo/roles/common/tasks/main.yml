@@ -1,3 +1,6 @@
 ---
-- name: Create conda env.
-  shell: conda env create --force -f bird-environment.yml
+- name: Create etc/ directory.
+  file:
+    path: "{{ prefix }}/etc"
+    state: directory
+    mode: 0755
