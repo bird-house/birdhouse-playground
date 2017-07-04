@@ -4,3 +4,21 @@
     path: "{{ prefix }}/etc"
     state: directory
     mode: 0755
+
+- name: Create var/log directory.
+  file:
+    path: "{{ prefix }}/var/log"
+    state: directory
+    mode: 0755
+
+- name: Create var/lib directory.
+  file:
+    path: "{{ prefix }}/var/lib"
+    state: directory
+    mode: 0755
+
+- name: Create var/run directory.
+  file:
+    path: "{{ prefix }}/var/run"
+    state: directory
+    mode: 0755

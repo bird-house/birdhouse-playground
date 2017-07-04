@@ -1,7 +1,13 @@
 ---
-- name: Create supervisor directory
+- name: Create etc/supervisor directory
   file:
     path: "{{ prefix }}/etc/supervisor"
+    state: directory
+    mode: 0755
+
+- name: Create var/log/supervisor directory
+  file:
+    path: "{{ prefix }}/var/log/supervisor"
     state: directory
     mode: 0755
 
