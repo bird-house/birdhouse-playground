@@ -7,3 +7,4 @@
 
 - name: Copy nginx configuration
   template: src=default.conf dest={{ prefix }}/etc/nginx/conf.d/default.conf
+  notify: restart nginx

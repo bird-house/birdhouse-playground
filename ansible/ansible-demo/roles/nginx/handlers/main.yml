@@ -1,0 +1,3 @@
+---
+- name: restart nginx
+  supervisorctl: name=nginx state=restarted
