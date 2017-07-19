@@ -63,3 +63,5 @@ target/
 # Ansible
 *.retry
 
+# Docker
+docker-compose.override.yml
