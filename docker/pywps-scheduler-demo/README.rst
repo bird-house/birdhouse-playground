@@ -136,8 +136,28 @@ Use docker-compose to stop the containers::
 
   $ docker-compose down
 
-Advanced steps ... mount /opt/birdhouse
-***************************************
+Advanced steps
+**************
+
+Customize environment
+---------------------
+
+You can override the default environment of docker containers using environment variables::
+
+  $ HOSTNAME=mydocker.local docker-compose up
+
+Or by adding a ``docker-compose.override.yml`` file::
+
+  $ vim docker-compose.override.yml
+  wps:
+    hostname: mydocker.local
+    environment:
+      HOSTNAME: mydocker.local
+  $ docker-compse up
+
+
+Mount filesystem /opt/birdhouse
+-------------------------------
 
 To see what is happening on wps/slurm processing you currently need to mount the
 ``/opt/birdhouse`` filesystem::
