@@ -1,15 +1,15 @@
 wps:
   image: birdhouse/pywps-scheduler-demo
-  hostname: localhost
+  hostname: $HOSTNAME
   environment:
-    HOSTNAME: localhost
-    HTTP_PORT: 5000
-    OUTPUT_PORT: 5001
+    HOSTNAME: $HOSTNAME
+    HTTP_PORT: $HTTP_PORT
+    OUTPUT_PORT: $OUTPUT_PORT
   ports:
     # wps port
-    - "5000:5000"
+    - "$HTTP_PORT:$HTTP_PORT"
     # nginx output port
-    - "5001:5001"
+    - "$OUTPUT_PORT:$OUTPUT_PORT"
   links:
     # uses slurm port 6818 to communicate
     - slurm
