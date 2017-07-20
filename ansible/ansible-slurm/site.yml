@@ -1,0 +1,5 @@
+---
+# This playbook is used to install slurm.
+- hosts: localhost
+  roles:
+    - slurm
