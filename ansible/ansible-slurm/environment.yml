@@ -1,0 +1,13 @@
+name: ansible-slurm
+channels:
+- defaults
+dependencies:
+- python=2.7
+- pyopenssl
+- cryptography
+- pyyaml
+- jinja2
+- paramiko
+- pycrypto
+- pip:
+  - ansible
