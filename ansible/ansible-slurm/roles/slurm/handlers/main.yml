@@ -1,0 +1,6 @@
+---
+- name: restart slurm
+  supervisorctl:
+    name: "slurm:"
+    state: restarted
+    config: /etc/supervisor/supervisord.conf

@@ -69,6 +69,8 @@
 
 - name: Create the slurm.conf file
   template: dest=/etc/slurm-llnl/slurm.conf src=slurm.conf.j2
+  notify: restart slurm
 
 - name: Create the supervisor.conf file
   template: dest=/etc/supervisor/conf.d/slurm.conf src=supervisor.conf.j2
+  notify: restart slurm
