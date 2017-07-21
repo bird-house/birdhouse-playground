@@ -1,1 +1,3 @@
 ---
+- name: install slurm dependences in Debian systems
+  apt: name=build-essential,munge,slurm-llnl
