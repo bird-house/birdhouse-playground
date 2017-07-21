@@ -1,11 +1,11 @@
 ---
-- name: install slurm dependences on Debian
+- name: Install slurm packages on Ubuntu/Debian
   apt: name=build-essential,munge,slurm-llnl
 
-- name: create munge key
+- name: Create munge key
   command: /usr/sbin/create-munge-key
 
-- name: create munge run folder
+- name: Create munge run folder
   file:
     path: /var/run/munge
     state: directory
@@ -13,13 +13,13 @@
     group: munge
     mode: 0755
 
-- name: fix munge run permissions
+- name: Fix munge run permissions
   file:
     path: /var/log/munge
     state: directory
     mode: 0755
 
-- name: fix slurm log folder
+- name: Fix slurm log folder
   file:
     path: /var/log/slurm
     state: directory
@@ -27,7 +27,7 @@
     group: slurm
     mode: 0755
 
-- name: touch slurm job_completions
+- name: Touch slurm job_completions
   file:
     path: /var/log/slurm/job_completions
     state: touch
@@ -35,7 +35,7 @@
     group: slurm
     mode: 0644
 
-- name: touch slurm accounting
+- name: Touch slurm accounting
   file:
     path: /var/log/slurm/accounting
     state: touch
@@ -43,7 +43,7 @@
     group: slurm
     mode: 0644
 
-- name: fix spool folder
+- name: Fix spool folder
   file:
     path: /var/spool
     state: directory
@@ -51,7 +51,7 @@
     group: slurm
     mode: 0775
 
-- name: touch slurm last_config_lite
+- name: Touch slurm last_config_lite
   file:
     path: /var/spool/last_config_lite
     state: touch
@@ -59,10 +59,13 @@
     group: slurm
     mode: 0644
 
-- name: touch slurm last_config_lite.new
+- name: Touch slurm last_config_lite.new
   file:
     path: /var/spool/last_config_lite.new
     state: touch
     owner: slurm
     group: slurm
     mode: 0644
+
+- name: Create the slurm.conf file
+  template: dest=/etc/slurm-llnl/slurm.conf src=slurm.conf.j2
