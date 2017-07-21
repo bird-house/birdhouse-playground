@@ -2,4 +2,5 @@
 # This playbook is used to install slurm.
 - hosts: localhost
   roles:
+    - supervisor
     - slurm
