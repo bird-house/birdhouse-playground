@@ -1,21 +1,13 @@
 ---
-- name: Install munge
+- name: install munge
   package: name=munge
 
-- name: Create munge key
+- name: create munge key
   command: /usr/sbin/create-munge-key
   notify: restart munge
 
-- name: Create /var/run/munge
-  file:
-    path: /var/run/munge
-    state: directory
-    owner: munge
-    group: munge
-    mode: 0755
-
-- name: Create /var/log/munge
-  file:
-    path: /var/log/munge
-    state: directory
-    mode: 0755
+- name: create folders used by munge and set munge owner
+  file: path={{item}} state=directory owner=munge group=munge mode=0755
+  with_items:
+    - /var/run/munge
+    - /var/log/munge

@@ -1,55 +1,14 @@
 ---
-- name: Install slurm packages on Ubuntu/Debian
+- name: install slurm packages on Ubuntu/Debian
   apt: name=slurm-llnl
 
-- name: Create /var/log/slurm
-  file:
-    path: /var/log/slurm
-    state: directory
-    owner: slurm
-    group: slurm
-    mode: 0755
+- name: create folders used by SLURM and set slurm owner
+  file: path={{item}} state=directory owner=slurm group=slurm mode=0755
+  with_items:
+    - /var/spool/slurm
+    - /var/log/slurm
+    - /var/log/munge
 
-- name: Touch /var/log/slurm/job_completions
-  file:
-    path: /var/log/slurm/job_completions
-    state: touch
-    owner: slurm
-    group: slurm
-    mode: 0644
-
-- name: Touch /var/log/slurm/accounting
-  file:
-    path: /var/log/slurm/accounting
-    state: touch
-    owner: slurm
-    group: slurm
-    mode: 0644
-
-- name: Create spool folder
-  file:
-    path: /var/spool
-    state: directory
-    owner: root
-    group: slurm
-    mode: 0775
-
-- name: Touch /var/spool/last_config_lite
-  file:
-    path: /var/spool/last_config_lite
-    state: touch
-    owner: slurm
-    group: slurm
-    mode: 0644
-
-- name: Touch /var/spool/last_config_lite.new
-  file:
-    path: /var/spool/last_config_lite.new
-    state: touch
-    owner: slurm
-    group: slurm
-    mode: 0644
-
-- name: Create slurm.conf
+- name: create slurm.conf
   template: dest=/etc/slurm-llnl/slurm.conf src=slurm.conf.j2
   notify: restart slurm
