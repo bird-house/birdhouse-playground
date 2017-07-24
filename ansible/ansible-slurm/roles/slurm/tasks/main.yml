@@ -35,7 +35,7 @@
   with_items:
     - /var/spool/slurm
     - /var/log/slurm
-    - /var/log/munge
+    - /var/run/slurm
 
 - name: create slurm.conf
   template: dest={{SLURM_CONF}} src=slurm.conf
