@@ -34,6 +34,7 @@
   file: path={{item}} state=directory owner=slurm group=slurm mode=0755
   with_items:
     - /var/spool/slurm
+    - /var/spool/slurm/ctld
     - /var/log/slurm
     - /var/run/slurm
 
