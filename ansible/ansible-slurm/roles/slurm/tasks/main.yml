@@ -7,20 +7,12 @@
   user: name="slurm" shell=/bin/bash system=yes
   when: ansible_os_family == "RedHat"
 
-- name: copy required packages
-  copy: src=centos7/{{item}} dest=/tmp/{{item}}
-  with_items:
-    - slurm-16.05.8-1.el7.centos.x86_64.rpm
-    - slurm-plugins-16.05.8-1.el7.centos.x86_64.rpm
-    - slurm-munge-16.05.8-1.el7.centos.x86_64.rpm
-  when: ansible_os_family == "RedHat"
-
 - name: install rpm slurm packages
   yum:
     name:
-      - "/tmp/slurm-16.05.8-1.el7.centos.x86_64.rpm"
-      - "/tmp/slurm-plugins-16.05.8-1.el7.centos.x86_64.rpm"
-      - "/tmp/slurm-munge-16.05.8-1.el7.centos.x86_64.rpm"
+      - slurm
+      - slurm-plugins
+      - slurm-munge
     state: present
   when: ansible_os_family == "RedHat"
 

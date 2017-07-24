@@ -2,3 +2,19 @@
 - name: Install common packages on Debian
   apt: name=build-essential
   when: ansible_os_family == "Debian"
+
+- name: Add EPEL repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+  when: ansible_os_family == "RedHat"
+
+- name: Add PUIAS repository
+  yum_repository:
+    name: puias
+    description: PUIAS computational repo
+    baseurl: http://springdale.math.ias.edu/data/puias/computational/$releasever/$basearch
+    gpgkey: http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
+    gpgcheck: yes
+  when: ansible_os_family == "RedHat"
