@@ -1,8 +1,8 @@
 ---
 - name: Install slurm packages on Ubuntu/Debian
-  apt: name=build-essential,slurm-llnl
+  apt: name=slurm-llnl
 
-- name: Fix slurm log folder
+- name: Create /var/log/slurm
   file:
     path: /var/log/slurm
     state: directory
@@ -10,7 +10,7 @@
     group: slurm
     mode: 0755
 
-- name: Touch slurm job_completions
+- name: Touch /var/log/slurm/job_completions
   file:
     path: /var/log/slurm/job_completions
     state: touch
@@ -18,7 +18,7 @@
     group: slurm
     mode: 0644
 
-- name: Touch slurm accounting
+- name: Touch /var/log/slurm/accounting
   file:
     path: /var/log/slurm/accounting
     state: touch
@@ -26,7 +26,7 @@
     group: slurm
     mode: 0644
 
-- name: Fix spool folder
+- name: Create spool folder
   file:
     path: /var/spool
     state: directory
@@ -34,7 +34,7 @@
     group: slurm
     mode: 0775
 
-- name: Touch slurm last_config_lite
+- name: Touch /var/spool/last_config_lite
   file:
     path: /var/spool/last_config_lite
     state: touch
@@ -42,7 +42,7 @@
     group: slurm
     mode: 0644
 
-- name: Touch slurm last_config_lite.new
+- name: Touch /var/spool/last_config_lite.new
   file:
     path: /var/spool/last_config_lite.new
     state: touch
@@ -50,11 +50,6 @@
     group: slurm
     mode: 0644
 
-- name: Create the slurm.conf file
+- name: Create slurm.conf
   template: dest=/etc/slurm-llnl/slurm.conf src=slurm.conf.j2
-  notify: restart munge
   notify: restart slurm
-
-# - name: Create the supervisor.conf file
-#   template: dest=/etc/supervisor/conf.d/slurm.conf src=supervisor.conf.j2
-#   notify: restart slurm

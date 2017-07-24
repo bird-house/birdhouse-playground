@@ -1,16 +1,5 @@
 ---
-- name: restart munge
-  service:
-    name: munge
-    state: started
-
 - name: restart slurm
   service:
     name: slurm-llnl
     state: started
-
-# - name: restart slurm
-#   supervisorctl:
-#     name: "slurm:"
-#     state: restarted
-#     config: /etc/supervisor/supervisord.conf

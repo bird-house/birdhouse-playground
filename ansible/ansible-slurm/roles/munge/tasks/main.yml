@@ -4,6 +4,7 @@
 
 - name: Create munge key
   command: /usr/sbin/create-munge-key
+  notify: restart munge
 
 - name: Create /var/run/munge
   file:
