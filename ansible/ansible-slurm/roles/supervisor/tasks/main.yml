@@ -1,3 +1,0 @@
----
-- name: Install supervisor on Debian
-  apt: name=supervisor
