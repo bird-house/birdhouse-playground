@@ -10,5 +10,5 @@
     - /var/log/munge
 
 - name: create slurm.conf
-  template: dest=/etc/slurm-llnl/slurm.conf src=slurm.conf.j2
+  template: dest=/etc/slurm-llnl/slurm.conf src=slurm.conf
   notify: restart slurm
