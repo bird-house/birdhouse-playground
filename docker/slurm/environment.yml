@@ -8,4 +8,4 @@ dependencies:
 # wps
 - pywps=4.0.0
 - dill
-- gunicorn=19.1.0
+- gunicorn=19.7
