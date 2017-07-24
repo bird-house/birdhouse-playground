@@ -19,7 +19,7 @@
 - name: set SLURM facts on CentOS
   set_fact:
     SLURM_CONF: /etc/slurm/slurm.conf
-    SLURM_SERVICE: slurm
+    SLURM_SERVICE: slurmd
   when: ansible_os_family == "RedHat"
 
 - name: set SLURM facts on Debian
@@ -39,4 +39,4 @@
   template: dest={{SLURM_CONF}} src=slurm.conf
 
 - name: enable slurm service
-  service: name={{SLURM_SERVICE}} state=started
+  service: name={{SLURM_SERVICE}} state=started enabled=yes
