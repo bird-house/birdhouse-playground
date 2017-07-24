@@ -1,23 +1,6 @@
 ---
 - name: Install slurm packages on Ubuntu/Debian
-  apt: name=build-essential,munge,slurm-llnl
-
-- name: Create munge key
-  command: /usr/sbin/create-munge-key
-
-- name: Create munge run folder
-  file:
-    path: /var/run/munge
-    state: directory
-    owner: munge
-    group: munge
-    mode: 0755
-
-- name: Fix munge run permissions
-  file:
-    path: /var/log/munge
-    state: directory
-    mode: 0755
+  apt: name=build-essential,slurm-llnl
 
 - name: Fix slurm log folder
   file:

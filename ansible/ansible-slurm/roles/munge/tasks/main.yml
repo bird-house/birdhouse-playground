@@ -1,0 +1,20 @@
+---
+- name: Install munge
+  apt: name=munge
+
+- name: Create munge key
+  command: /usr/sbin/create-munge-key
+
+- name: Create /var/run/munge
+  file:
+    path: /var/run/munge
+    state: directory
+    owner: munge
+    group: munge
+    mode: 0755
+
+- name: Create /var/log/munge
+  file:
+    path: /var/log/munge
+    state: directory
+    mode: 0755
