@@ -1,0 +1,4 @@
+---
+- name: Install drmaa packages on Debian
+  apt: name=slurm-drmaa1,slurm-drmaa-dev
+  when: ansible_os_family == "Debian"
