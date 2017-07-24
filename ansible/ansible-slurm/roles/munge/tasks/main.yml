@@ -1,6 +1,6 @@
 ---
 - name: Install munge
-  apt: name=munge
+  package: name=munge
 
 - name: Create munge key
   command: /usr/sbin/create-munge-key
