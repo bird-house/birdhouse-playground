@@ -1,13 +1,21 @@
 ---
-- name: install munge
-  package: name=munge
+- name: install munge on Debian
+  apt: name=munge
+  when: ansible_os_family == "Debian"
+
+- name: install munge on CentOS
+  yum: name=munge,munge-libs,munge-devel
+  when: ansible_os_family == "RedHat"
 
 - name: create munge key
   command: /usr/sbin/create-munge-key
-  notify: restart munge
+  #notify: restart munge
 
 - name: create folders used by munge and set munge owner
   file: path={{item}} state=directory owner=munge group=munge mode=0755
   with_items:
     - /var/run/munge
     - /var/log/munge
+
+#- name: enable munge service
+#  service: name=munge state=started enabled=yes

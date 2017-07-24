@@ -1,6 +1,36 @@
 ---
-- name: install slurm packages on Ubuntu/Debian
+- name: install slurm packages on Debian
   apt: name=slurm-llnl
+  when: ansible_os_family == "Debian"
+
+- name: create slurm user and group
+  user: name="slurm" shell=/bin/bash system=yes
+  when: ansible_os_family == "RedHat"
+
+- name: copy required packages
+  copy: src=centos7/{{item}} dest=/tmp/{{item}}
+  with_items:
+    - slurm-16.05.8-1.el7.centos.x86_64.rpm
+    - slurm-plugins-16.05.8-1.el7.centos.x86_64.rpm
+  when: ansible_os_family == "RedHat"
+
+- name: install rpm slurm packages
+  yum:
+    name:
+      - "/tmp/slurm-16.05.8-1.el7.centos.x86_64.rpm"
+      - "/tmp/slurm-plugins-16.05.8-1.el7.centos.x86_64.rpm"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: set SLURM facts on CentOS
+  set_fact:
+    SLURM_CONF: "/etc/slurm/slurm.conf"
+  when: ansible_os_family == "RedHat"
+
+- name: set SLURM facts on Debian
+  set_fact:
+    SLURM_CONF: "/etc/slurm-llnl/slurm.conf"
+  when: ansible_os_family == "Debian"
 
 - name: create folders used by SLURM and set slurm owner
   file: path={{item}} state=directory owner=slurm group=slurm mode=0755
@@ -9,6 +39,9 @@
     - /var/log/slurm
     - /var/log/munge
 
+#- name: enable slurm service startup
+#  service: name=slurm state=started enabled=yes
+
 - name: create slurm.conf
-  template: dest=/etc/slurm-llnl/slurm.conf src=slurm.conf
+  template: dest={{SLURM_CONF}} src=slurm.conf
   notify: restart slurm
