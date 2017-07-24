@@ -39,8 +39,10 @@
     - /var/log/slurm
     - /var/log/munge
 
-#- name: enable slurm service startup
-#  service: name=slurm state=started enabled=yes
+- name: enable slurm service
+  service:
+    name: slurm
+    state: started
 
 - name: create slurm.conf
   template: dest={{SLURM_CONF}} src=slurm.conf
