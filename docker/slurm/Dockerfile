@@ -19,7 +19,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.2"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.3"
 
 # install debian packages with slurm
 RUN apt-get update && \
@@ -71,12 +71,12 @@ RUN git clone https://github.com/bird-house/emu.git
 WORKDIR /root/emu
 RUN /bin/bash -c "source activate wps && python setup.py install"
 
-# get pywps
-WORKDIR /root
-RUN git clone https://github.com/bird-house/pywps.git
-WORKDIR /root/pywps
-RUN  git checkout dev-scheduler
-RUN /bin/bash -c "source activate wps && conda remove -y pywps && python setup.py install"
+# get pywps ... scheduler extension is part of conda package
+#WORKDIR /root
+#RUN git clone https://github.com/bird-house/pywps.git
+#WORKDIR /root/pywps
+#RUN  git checkout dev-scheduler
+#RUN /bin/bash -c "source activate wps && conda remove -y pywps && python setup.py install"
 
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \
