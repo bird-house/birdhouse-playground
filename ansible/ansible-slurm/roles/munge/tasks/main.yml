@@ -4,7 +4,6 @@
 
 - name: create munge key
   command: /usr/sbin/create-munge-key
-  #notify: restart munge
 
 - name: create folders used by munge and set munge owner
   file: path={{item}} state=directory owner=munge group=munge mode=0755
