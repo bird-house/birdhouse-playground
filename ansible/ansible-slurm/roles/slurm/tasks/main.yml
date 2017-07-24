@@ -24,12 +24,14 @@
 
 - name: set SLURM facts on CentOS
   set_fact:
-    SLURM_CONF: "/etc/slurm/slurm.conf"
+    SLURM_CONF: /etc/slurm/slurm.conf
+    SLURM_SERVICE: slurm
   when: ansible_os_family == "RedHat"
 
 - name: set SLURM facts on Debian
   set_fact:
-    SLURM_CONF: "/etc/slurm-llnl/slurm.conf"
+    SLURM_CONF: /etc/slurm-llnl/slurm.conf
+    SLURM_SERVICE: slurm-llnl
   when: ansible_os_family == "Debian"
 
 - name: create folders used by SLURM and set slurm owner
@@ -39,11 +41,8 @@
     - /var/log/slurm
     - /var/log/munge
 
-- name: enable slurm service
-  service:
-    name: slurm
-    state: started
-
 - name: create slurm.conf
   template: dest={{SLURM_CONF}} src=slurm.conf
-  notify: restart slurm
+
+- name: enable slurm service
+  service: name={{SLURM_SERVICE}} state=started
