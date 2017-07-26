@@ -2,4 +2,4 @@
 # This playbook is used to install sge.
 - hosts: localhost
   roles:
-  - { role: 'grycap.sge', sge_type_of_node: 'front' }
+  - { role: 'grycap.sge', sge_type_of_node: 'front', sge_server_name: 'localhost' }

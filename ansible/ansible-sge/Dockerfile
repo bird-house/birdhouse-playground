@@ -14,7 +14,7 @@
 ######################################################
 # vim:set ft=dockerfile:
 
-FROM centos:7
+FROM centos:6
 
 MAINTAINER Birdhouse <wps@dkrz.de>
 LABEL Description="SGE Demo" Vendor="Birdhouse" Version="0.1"
@@ -27,7 +27,11 @@ RUN yum update -y && \
 #COPY . /opt/ansbile-sge
 ADD bootstrap.sh /opt/ansible-sge/bootstrap.sh
 ADD sge.yml /opt/ansible-sge/sge.yml
+ADD play.sh /opt/ansible-sge/play.sh
 WORKDIR /opt/ansible-sge
 RUN bash bootstrap.sh
+
+# install ansible-role-sge from galaxy
+RUN ansible-galaxy install grycap.sge
 
 CMD [ "/bin/bash" ]

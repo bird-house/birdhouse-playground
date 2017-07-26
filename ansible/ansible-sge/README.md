@@ -11,7 +11,7 @@ Build docker image:
 
 Run docker image:
 
-    $ docker run --rm -it birdhouse/sge
+    $ docker run --rm -it birdhouse/sge /opt/ansible-sge/play.sh
 
 ## Links
 
