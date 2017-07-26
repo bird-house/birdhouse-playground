@@ -34,5 +34,4 @@ RUN bash bootstrap.sh
 # install ansible-role-sge from galaxy
 RUN ansible-galaxy install grycap.sge
 
-#CMD ["/usr/sbin/init"]
 CMD [ "/bin/bash" ]
