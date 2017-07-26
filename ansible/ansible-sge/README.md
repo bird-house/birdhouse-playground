@@ -6,7 +6,12 @@ An ansible playbook to install sge.
 
 Build docker image:
 
-$ docker build --rm -t birdhouse/sge .
+    $ docker build --rm -t birdhouse/sge .
+
+
+Run docker image:
+
+    $ docker run --rm -it birdhouse/sge
 
 ## Links
 
