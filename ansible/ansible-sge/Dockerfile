@@ -26,6 +26,7 @@ RUN yum update -y && \
 # copy ansible-sge
 #COPY . /opt/ansbile-sge
 ADD bootstrap.sh /opt/ansible-sge/bootstrap.sh
+ADD sge.yml /opt/ansible-sge/sge.yml
 WORKDIR /opt/ansible-sge
 RUN bash bootstrap.sh
 
