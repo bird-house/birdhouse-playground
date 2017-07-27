@@ -17,3 +17,4 @@ Run docker image:
 
 * https://galaxy.ansible.com/grycap/sge/
 * https://github.com/grycap/ansible-role-sge
+* https://github.com/aabdulwahed/Sun-Grid-Engine-Ansible
