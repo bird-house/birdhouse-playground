@@ -11,5 +11,5 @@
     - /var/run/munge
     - /var/log/munge
 
-- name: enable munge service
-  service: name=munge state=started enabled=yes
+#- name: enable munge service
+#  service: name=munge state=started enabled=yes
