@@ -19,7 +19,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.1"
 
 # clone ansible slurm
 WORKDIR /root
@@ -35,7 +35,7 @@ RUN apt-get update -y && \
 RUN bash bootstrap.sh
 
 # run ansible to install slurm
-RUN /usr/bin/ansible-playbook -c local slurm.yml
+RUN /usr/bin/ansible-playbook -c local -i hosts.example slurm.yml
 
 # Install conda packages with supervisor
 RUN conda update -y conda && \
