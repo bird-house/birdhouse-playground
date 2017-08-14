@@ -11,11 +11,20 @@ wps:
     # nginx output port
     - "$OUTPUT_PORT:$OUTPUT_PORT"
   links:
-    # uses slurm port 6818 to communicate
+    # usese postgres port 5432.
+    - db
+    # uses slurm port 6818.
     - slurm
   volumes_from:
     # shared volume /opt/birdhouse
     - slurm
+db:
+  hostname: db
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+  #  ports:
+  #    - "5432:5432"
 slurm:
   hostname: slurm
   image: birdhouse/slurm
