@@ -19,43 +19,29 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6"
 
-# install debian packages with slurm
-RUN apt-get update && \
-  apt-get install -y build-essential wget vim git munge slurm-llnl
+# clone ansible slurm
+WORKDIR /root
+RUN git clone https://github.com/bird-house/birdhouse-playground.git
+WORKDIR /root/birdhouse-playground/ansible/ansible-slurm
+RUN git checkout develop
 
-# create munge key
-RUN /usr/sbin/create-munge-key
+# prepare system
+RUN apt-get update -y && \
+  apt-get install sudo
 
-# fix munge folders
-RUN mkdir /var/run/munge && \
-  chown -R munge:munge /var/run/munge && \
-  chmod 755 /var/run/munge
+# prepare ansible
+RUN bash bootstrap.sh
 
-# fix munge permissions
-RUN chmod g-w /var/log && \
-  chmod g-w /var/log/munge
-
-# fix slurm folders
-RUN mkdir /var/log/slurm && \
-  touch /var/log/slurm/job_completions && \
-  touch /var/log/slurm/accounting && \
-  chown -R slurm:slurm /var/log/slurm
-
-RUN touch /var/spool/last_config_lite && \
-  touch /var/spool/last_config_lite.new && \
-  chown slurm:slurm /var/spool/last_config_lite*
-
-RUN chown root:slurm /var/spool && \
-  chmod g+w /var/spool
+# run ansible to install slurm
+RUN /usr/bin/ansible-playbook -c local slurm.yml
 
 # Install conda packages with supervisor
 RUN conda update -y conda && \
   conda install -y supervisor
 
 # update configs
-ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
 ADD supervisord.conf /etc/supervisord.conf
 
 # make supervisor folders
@@ -70,13 +56,6 @@ WORKDIR /root
 RUN git clone https://github.com/bird-house/emu.git
 WORKDIR /root/emu
 RUN /bin/bash -c "source activate wps && python setup.py install"
-
-# get pywps ... scheduler extension is part of conda package
-#WORKDIR /root
-#RUN git clone https://github.com/bird-house/pywps.git
-#WORKDIR /root/pywps
-#RUN  git checkout dev-scheduler
-#RUN /bin/bash -c "source activate wps && conda remove -y pywps && python setup.py install"
 
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \
