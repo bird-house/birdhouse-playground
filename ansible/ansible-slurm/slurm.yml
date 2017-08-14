@@ -1,6 +1,6 @@
 ---
 # This playbook is used to install slurm.
-- hosts: localhost
+- hosts: all
   roles:
     - common
     - munge
