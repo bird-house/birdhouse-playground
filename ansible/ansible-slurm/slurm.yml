@@ -3,6 +3,15 @@
 - hosts: all
   roles:
     - common
+    - role: uchida.miniconda
+      miniconda_python: 2
+      miniconda_prefix: /opt/anaconda
+      miniconda_env:
+        name: root
+        dependencies:
+          - python=2
+          - supervisor
     - munge
     - slurm
     - drmaa
+    - supervisor
