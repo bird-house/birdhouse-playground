@@ -149,10 +149,12 @@ You can override the default environment of docker containers using environment 
 Or by adding a ``docker-compose.override.yml`` file::
 
   $ vim docker-compose.override.yml
-  wps:
-    hostname: mydocker.local
-    environment:
-      HOSTNAME: mydocker.local
+  version: '2'
+  services:
+    wps:
+      hostname: mydocker.local
+      environment:
+        HOSTNAME: mydocker.local
   $ docker-compse up
 
 
