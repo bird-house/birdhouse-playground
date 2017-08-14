@@ -1,41 +1,45 @@
-wps:
-  image: birdhouse/pywps-scheduler-demo
-  hostname: $HOSTNAME
-  environment:
-    HOSTNAME: $HOSTNAME
-    HTTP_PORT: $HTTP_PORT
-    OUTPUT_PORT: $OUTPUT_PORT
-  ports:
-    # wps port
-    - "$HTTP_PORT:$HTTP_PORT"
-    # nginx output port
-    - "$OUTPUT_PORT:$OUTPUT_PORT"
-  links:
-    # uses postgres port 5432.
-    - db
-    # uses slurm port 6818.
-    - slurm
-  volumes_from:
-    # shared volume /opt/birdhouse
-    - slurm
-slurm:
-  hostname: slurm
-  image: birdhouse/slurm
-#  ports:
-#    - "6818:6818"
-# HINT: Unomment the following lines to mount /opt/birdhouse
-#  volumes:
-#    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
-#    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
-#    - /opt/birdhouse/etc:/opt/birdhouse/etc
-#  volume_driver: local
-  links:
-    # uses postgres port 5432.
-    - db
-db:
-  hostname: db
-  image: postgres
-  environment:
-    POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+version: '2.0'
+
+services:
+  wps:
+    image: birdhouse/pywps-scheduler-demo
+    hostname: $HOSTNAME
+    networks:
+      - demo
+    environment:
+      HOSTNAME: $HOSTNAME
+      HTTP_PORT: $HTTP_PORT
+      OUTPUT_PORT: $OUTPUT_PORT
+    ports:
+      # wps port
+      - "$HTTP_PORT:$HTTP_PORT"
+      # nginx output port
+      - "$OUTPUT_PORT:$OUTPUT_PORT"
+    volumes_from:
+      # shared volume /opt/birdhouse
+      - slurm
+  slurm:
+    hostname: slurm
+    image: birdhouse/slurm
+    networks:
+      - demo
   #  ports:
-  #    - "5432:5432"
+  #    - "6818:6818"
+  # HINT: Unomment the following lines to mount /opt/birdhouse
+  #  volumes:
+  #    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
+  #    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
+  #    - /opt/birdhouse/etc:/opt/birdhouse/etc
+  #  volume_driver: local
+  db:
+    hostname: db
+    image: postgres
+    networks:
+      - demo
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    #  ports:
+    #    - "5432:5432"
+
+networks:
+  demo:
