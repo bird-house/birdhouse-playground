@@ -19,7 +19,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.4"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5"
 
 # install debian packages with slurm
 RUN apt-get update && \
