@@ -18,7 +18,7 @@
 FROM ubuntu:latest
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.5"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.7"
 
 # prepare system
 RUN apt-get update -y && \

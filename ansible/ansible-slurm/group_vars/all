@@ -1,7 +1,7 @@
 ---
 # Variables listed here are applicable to all host groups
 
-# Type of node to install: front or wn
+# Type of node to install: front, worker or client
 slurm_type_of_node: front
 # Name of the SLURM server
 slurm_server_name: localhost

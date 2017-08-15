@@ -5,4 +5,3 @@
     - common
     - munge
     - slurm
-    - { role: drmaa, when: slurm_type_of_node == 'front' }
