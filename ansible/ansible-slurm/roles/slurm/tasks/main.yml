@@ -40,9 +40,3 @@
 
 - name: create slurm.conf
   template: dest={{SLURM_CONF}} src=slurm.conf
-
-#- name: start slurm controller service
-#  service: name={{SLURM_CONTROL}} state=started enabled=yes
-
-#- name: start slurm service
-#  service: name={{SLURM_SERVICE}} state=started enabled=yes
