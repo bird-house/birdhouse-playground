@@ -1,11 +1,8 @@
-version: '2.0'
-
+version: '2'
 services:
   wps:
     image: birdhouse/pywps-scheduler-demo
     hostname: $HOSTNAME
-    networks:
-      - demo
     environment:
       HOSTNAME: $HOSTNAME
       HTTP_PORT: $HTTP_PORT
@@ -21,8 +18,6 @@ services:
   slurm:
     hostname: slurm
     image: birdhouse/slurm
-    networks:
-      - demo
     # ports:
     #  - "6818:6818"
     #  - "6817:6817"
@@ -35,12 +30,7 @@ services:
   db:
     hostname: db
     image: postgres
-    networks:
-      - demo
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     #  ports:
     #    - "5432:5432"
-
-networks:
-  demo:
