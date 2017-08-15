@@ -16,19 +16,25 @@
 #
 ######################################################
 
-FROM ubuntu
+FROM ubuntu:latest
 
 MAINTAINER Birdhouse <wps@dkrz.de>
 LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.2"
 
 # prepare system
 RUN apt-get update -y && \
-  apt-get install -y sudo git
+  apt-get install -y sudo git curl bzip2
+
+
+# install miniconda
+WORKDIR /opt
+RUN curl -LO https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+RUN bash Miniconda2-latest-Linux-x86_64.sh -b -p /opt/miniconda2
+ENV PATH="/opt/miniconda2/bin:${PATH}"
 
 # clone ansible slurm
-WORKDIR /root
 RUN git clone https://github.com/bird-house/birdhouse-playground.git
-WORKDIR /root/birdhouse-playground/ansible/ansible-slurm
+WORKDIR /opt/birdhouse-playground/ansible/ansible-slurm
 RUN git checkout develop
 
 # prepare ansible
@@ -47,14 +53,14 @@ ADD supervisord.conf /etc/supervisord.conf
 # RUN mkdir /var/log/supervisor
 
 # install pywps via conda
-ADD environment.yml /root/environment.yml
-# RUN conda env create -f /root/environment.yml
+ADD environment.yml /opt/environment.yml
+RUN conda env create -f /opt/environment.yml
 
 # install emu wps
-WORKDIR /root
+WORKDIR /opt
 RUN git clone https://github.com/bird-house/emu.git
-WORKDIR /root/emu
-#RUN /bin/bash -c "source activate wps && python setup.py install"
+WORKDIR /opt/emu
+RUN /bin/bash -c "source activate wps && python setup.py install"
 
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \

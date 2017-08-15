@@ -6,9 +6,6 @@ This image is used as a single node cluster for testing purposes in birdhouse.
 
 The docker image contains a Slurm scheduler and a PyWPS demo installed via conda.
 
-The Dockerfile is an adaption of `agaveapi/slurm`_.
-
-.. _agaveapi/slurm: https://hub.docker.com/r/agaveapi/slurm/
 
 How to use this image
 ---------------------
