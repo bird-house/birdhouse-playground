@@ -23,8 +23,9 @@ services:
     image: birdhouse/slurm
     networks:
       - demo
-  #  ports:
-  #    - "6818:6818"
+    # ports:
+    #  - "6818:6818"
+    #  - "6817:6817"
   # HINT: Unomment the following lines to mount /opt/birdhouse
   #  volumes:
   #    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
