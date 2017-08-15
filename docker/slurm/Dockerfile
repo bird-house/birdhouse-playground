@@ -50,7 +50,7 @@ RUN apt-get install -y supervisor
 ADD supervisord.conf /etc/supervisord.conf
 
 # make supervisor folders
-# RUN mkdir /var/log/supervisor
+RUN mkdir -p /opt/birdhouse/var/log/supervisor
 
 # install pywps via conda
 ADD environment.yml /opt/environment.yml
