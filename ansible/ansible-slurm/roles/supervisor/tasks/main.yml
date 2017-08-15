@@ -1,2 +1,0 @@
-- name: create supervisord.conf
-  template: dest=/etc/supervisor/supervsiord.conf src=supervisord.conf
