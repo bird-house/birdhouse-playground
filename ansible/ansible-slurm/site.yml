@@ -3,6 +3,6 @@
 - hosts: all
   roles:
     - common
-    - supervisor
     - munge
     - slurm
+    - supervisor
