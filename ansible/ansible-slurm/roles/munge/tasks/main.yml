@@ -5,6 +5,9 @@
 #- name: create munge key
 #  command: /usr/sbin/create-munge-key
 
+- stat: path=/etc/munge/munge.key
+  register: munge_key
+
 - shell: echo -n "{{ slurm_password }}" | sha512sum | cut -d' ' -f1 >/etc/munge/munge.key
   when: not munge_key.stat.exists
 
