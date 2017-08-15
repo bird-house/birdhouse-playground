@@ -31,7 +31,7 @@
   when: ansible_os_family == "Debian"
 
 - name: create folders used by SLURM and set slurm owner
-  file: path={{item}} state=directory owner=slurm group=slurm mode=0755
+  file: path={{ item }} state=directory owner=slurm group=slurm mode=0755
   with_items:
     - /var/spool/slurm
     - /var/spool/slurm/ctld
@@ -39,4 +39,4 @@
     - /var/run/slurm
 
 - name: create slurm.conf
-  template: dest={{SLURM_CONF}} src=slurm.conf
+  template: dest={{ SLURM_CONF }} src=slurm.conf
