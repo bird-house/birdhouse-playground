@@ -4,8 +4,7 @@
 # Tag: birdhouse/slurm
 #
 # This container provides a standard Slurm controller
-# and worker created on top of the continuumio/miniconda
-# image.
+# and worker created on top of the ubuntu image.
 #
 # Usage:
 # docker run -h slurm -i -t  \
@@ -19,7 +18,7 @@
 FROM ubuntu:latest
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.3"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.5"
 
 # prepare system
 RUN apt-get update -y && \
@@ -33,6 +32,7 @@ RUN bash Miniconda2-latest-Linux-x86_64.sh -b -p /opt/miniconda2
 ENV PATH="/opt/miniconda2/bin:${PATH}"
 
 # clone ansible slurm
+WORKDIR /opt
 RUN git clone https://github.com/bird-house/birdhouse-playground.git
 WORKDIR /opt/birdhouse-playground/ansible/ansible-slurm
 RUN git checkout develop
@@ -41,7 +41,7 @@ RUN git checkout develop
 RUN bash bootstrap.sh
 
 # run ansible to install slurm
-RUN /usr/bin/ansible-playbook slurm.yml \
+RUN /usr/bin/ansible-playbook site.yml \
   -c local \
   -i hosts.example \
   --extra-vars "slurm_server_name=slurm"
@@ -50,7 +50,7 @@ RUN /usr/bin/ansible-playbook slurm.yml \
 RUN apt-get install -y supervisor
 
 # update configs
-ADD supervisord.conf /etc/supervisord.conf
+ADD supervisord.conf /etc/supervisor/supervisord.conf
 
 # make supervisor folders
 RUN mkdir -p /opt/birdhouse/var/log/supervisor
@@ -73,4 +73,4 @@ VOLUME /opt/birdhouse/var/log
 VOLUME /opt/birdhouse/etc
 
 EXPOSE 6817 6818
-CMD [ "/usr/bin/supervisord",  "-c", "/etc/supervisord.conf" ]
+CMD [ "/usr/bin/supervisord",  "-c", "/etc/supervisor/supervisord.conf" ]
