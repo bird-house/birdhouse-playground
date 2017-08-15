@@ -35,8 +35,17 @@
   with_items:
     - /var/spool/slurm
     - /var/spool/slurm/ctld
+    - /var/spool/slurm/d
     - /var/log/slurm
     - /var/run/slurm
+
+- name: fix slurm files
+  file: path={{ item }} state=touch owner=slurm group=slurm mode=0644
+  with_items:
+    - /var/log/slurm/job_completions
+    - /var/log/slurm/accounting
+    - /var/spool/slurm/ctld/last_config_lite
+    - /var/spool/slurm/ctld/last_config_lite.new
 
 - name: create slurm.conf
   template: dest={{ SLURM_CONF }} src=slurm.conf
