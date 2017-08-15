@@ -41,7 +41,10 @@ RUN git checkout develop
 RUN bash bootstrap.sh
 
 # run ansible to install slurm
-RUN /usr/bin/ansible-playbook -c local -i hosts.example slurm.yml
+RUN /usr/bin/ansible-playbook slurm.yml \
+  -c local \
+  -i hosts.example \
+  --extra-vars "slurm_server_name=slurm"
 
 # Install supervisor
 RUN apt-get install -y supervisor
