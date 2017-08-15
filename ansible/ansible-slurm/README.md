@@ -2,6 +2,7 @@
 
 An ansible playbook to install slurm.
 
+
 ## Links
 
 * https://galaxy.ansible.com/list#/roles?page=1&page_size=10&autocomplete=slurm
