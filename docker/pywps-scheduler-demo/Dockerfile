@@ -8,10 +8,6 @@ LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.5"
 RUN apt-get update && \
   apt-get install -y build-essential slurm-drmaa1 slurm-drmaa-dev slurm-llnl
 
-# Install conda packages for scheduler extension
-RUN conda update -y conda && \
-  conda install -y -n emu -c birdhouse -c conda-forge pywps drmaa dill
-
 # change demo user home
 RUN usermod -m -d /home/demo www-data && \
   mkdir /home/demo && \
