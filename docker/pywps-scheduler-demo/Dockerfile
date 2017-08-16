@@ -2,7 +2,7 @@
 FROM phusion/baseimage:latest
 MAINTAINER Birdhouse <wps@dkrz.de>
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.6"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.6.1"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
@@ -30,7 +30,10 @@ RUN conda install --yes --channel-priority \
   -c birdhouse -c conda-forge \
   emu pywps=4 drmaa dill psycopg2
 
+# add wps config
+ADD pywps.cfg /home/demo/pywps.cfg
+
 EXPOSE 5000
 
 # Start service ...
-CMD ["emu"]
+CMD ["/home/demo/miniconda2/bin/emu", "-a", "-c", "/home/demo/pywps.cfg"]
