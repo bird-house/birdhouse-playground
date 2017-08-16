@@ -5,13 +5,8 @@ services:
     hostname: $HOSTNAME
     environment:
       HOSTNAME: $HOSTNAME
-      HTTP_PORT: $HTTP_PORT
-      OUTPUT_PORT: $OUTPUT_PORT
     ports:
-      # wps port
-      - "$HTTP_PORT:$HTTP_PORT"
-      # nginx output port
-      - "$OUTPUT_PORT:$OUTPUT_PORT"
+      - "5000:5000"
     volumes_from:
       # shared volume /opt/birdhouse
       - slurm
