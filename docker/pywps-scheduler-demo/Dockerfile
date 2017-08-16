@@ -2,11 +2,11 @@
 FROM phusion/baseimage:latest
 MAINTAINER Birdhouse <wps@dkrz.de>
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.6.1"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.6.4"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
-  apt-get install -y build-essential slurm-drmaa1 slurm-drmaa-dev slurm-llnl
+  apt-get install -y bzip2 curl slurm-drmaa1 slurm-drmaa-dev slurm-llnl
 
 # add slurm config
 ADD slurm.conf /etc/slurm-llnl/slurm.conf
@@ -32,6 +32,10 @@ RUN conda install --yes --channel-priority \
 
 # add wps config
 ADD pywps.cfg /home/demo/pywps.cfg
+
+# add pywps folders
+RUN mkdir -p "/home/demo/pywps/tmp" && \
+  mkdir -p "/home/demo/pywps/outputs"
 
 EXPOSE 5000
 

@@ -4,21 +4,15 @@ services:
     image: birdhouse/pywps-scheduler-demo
     ports:
       - "5000:5000"
-    volumes_from:
-      # shared volume /opt/birdhouse
-      - slurm
   slurm:
     hostname: slurm
     image: birdhouse/slurm
+    #volumes_from:
+      # shared volume /home/demo
+    #  - wps
     # ports:
     #  - "6818:6818"
     #  - "6817:6817"
-  # HINT: Unomment the following lines to mount /opt/birdhouse
-  #  volumes:
-  #    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
-  #    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
-  #    - /opt/birdhouse/etc:/opt/birdhouse/etc
-  #  volume_driver: local
   db:
     hostname: db
     image: postgres
