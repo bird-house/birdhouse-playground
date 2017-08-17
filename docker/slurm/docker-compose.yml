@@ -1,8 +1,10 @@
-version: '2'
-services:
-  slurm:
-    hostname: slurm
-    image: birdhouse/slurm
-    ports:
-      - "6818:6818"
-      - "6817:6817"
+slurm:
+  hostname: slurm
+  image: birdhouse/slurm
+  ports:
+    - "6818:6818"
+  volumes:
+    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
+    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
+    - /opt/birdhouse/etc:/opt/birdhouse/etc
+  volume_driver: local

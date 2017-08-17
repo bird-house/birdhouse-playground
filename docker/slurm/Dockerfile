@@ -4,7 +4,8 @@
 # Tag: birdhouse/slurm
 #
 # This container provides a standard Slurm controller
-# and worker created on top of the ubuntu image.
+# and worker created on top of the continuumio/miniconda
+# image.
 #
 # Usage:
 # docker run -h slurm -i -t  \
@@ -15,55 +16,67 @@
 #
 ######################################################
 
-FROM ubuntu:latest
+FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.7"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5"
 
-# prepare system
-RUN apt-get update -y && \
-  apt-get install -y sudo git curl bzip2
+# install debian packages with slurm
+RUN apt-get update && \
+  apt-get install -y build-essential wget vim git munge slurm-llnl
 
+# create munge key
+RUN /usr/sbin/create-munge-key
 
-# install miniconda
-WORKDIR /opt
-RUN curl -LO https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-RUN bash Miniconda2-latest-Linux-x86_64.sh -b -p /opt/miniconda2
-ENV PATH="/opt/miniconda2/bin:${PATH}"
+# fix munge folders
+RUN mkdir /var/run/munge && \
+  chown -R munge:munge /var/run/munge && \
+  chmod 755 /var/run/munge
 
-# clone ansible slurm
-WORKDIR /opt
-RUN git clone https://github.com/bird-house/birdhouse-playground.git
-WORKDIR /opt/birdhouse-playground/ansible/ansible-slurm
-RUN git checkout develop
+# fix munge permissions
+RUN chmod g-w /var/log && \
+  chmod g-w /var/log/munge
 
-# prepare ansible
-RUN bash bootstrap.sh
+# fix slurm folders
+RUN mkdir /var/log/slurm && \
+  touch /var/log/slurm/job_completions && \
+  touch /var/log/slurm/accounting && \
+  chown -R slurm:slurm /var/log/slurm
 
-# run ansible to install slurm
-RUN /usr/bin/ansible-playbook site.yml \
-  -c local \
-  -i hosts.example \
-  --extra-vars "slurm_server_name=slurm"
+RUN touch /var/spool/last_config_lite && \
+  touch /var/spool/last_config_lite.new && \
+  chown slurm:slurm /var/spool/last_config_lite*
 
-# Install supervisor
-RUN apt-get install -y supervisor
+RUN chown root:slurm /var/spool && \
+  chmod g+w /var/spool
+
+# Install conda packages with supervisor
+RUN conda update -y conda && \
+  conda install -y supervisor
 
 # update configs
-ADD supervisord.conf /etc/supervisor/supervisord.conf
+ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
+ADD supervisord.conf /etc/supervisord.conf
 
 # make supervisor folders
-RUN mkdir -p /opt/birdhouse/var/log/supervisor
+RUN mkdir /var/log/supervisor
 
 # install pywps via conda
-ADD environment.yml /opt/environment.yml
-RUN conda env create -f /opt/environment.yml
+ADD environment.yml /root/environment.yml
+RUN conda env create -f /root/environment.yml
 
 # install emu wps
-WORKDIR /opt
+WORKDIR /root
 RUN git clone https://github.com/bird-house/emu.git
-WORKDIR /opt/emu
+WORKDIR /root/emu
 RUN /bin/bash -c "source activate wps && python setup.py install"
+
+# get pywps ... scheduler extension is part of conda package
+#WORKDIR /root
+#RUN git clone https://github.com/bird-house/pywps.git
+#WORKDIR /root/pywps
+#RUN  git checkout dev-scheduler
+#RUN /bin/bash -c "source activate wps && conda remove -y pywps && python setup.py install"
 
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \
@@ -73,4 +86,4 @@ VOLUME /opt/birdhouse/var/log
 VOLUME /opt/birdhouse/etc
 
 EXPOSE 6817 6818
-CMD [ "/usr/bin/supervisord",  "-c", "/etc/supervisor/supervisord.conf" ]
+CMD [ "/opt/conda/bin/supervisord",  "-c", "/etc/supervisord.conf" ]
