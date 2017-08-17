@@ -2,7 +2,7 @@
 FROM birdhouse/emu:latest
 MAINTAINER Birdhouse <wps@dkrz.de>
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.5.5"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.6.0"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
@@ -24,7 +24,7 @@ ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
 ADD custom.cfg /opt/birdhouse/src/emu/custom.cfg
 
 # copy start script
-COPY entrypoint.sh /entrypoint.sh
+COPY start-services.sh /etc/start-services.sh
 
 # Start service ...
-CMD ["/entrypoint.sh"]
+CMD ["/etc/start-services.sh"]

@@ -9,11 +9,16 @@
 #=============================================================#
 # keep external environment
 set -o allexport
-echo -e "\nStarting supervisor..."
+echo -e "\nStartup Slurm..."
 supervisord -c /etc/supervisor/supervisord.conf
 
-echo -e "\nStarting slurm..."
-supervisorctl -c /etc/supervisor/supervisord.conf start munge slurmctld slurmd
+if [ $1 == "slurmctld" ]; then
+  supervisorctl -c /etc/supervisor/supervisord.conf start $1
+elif [ $1 == "slurmd" ]; then
+  supervisorctl -c /etc/supervisor/supervisord.conf start $1
+else
+  supervisorctl -c /etc/supervisor/supervisord.conf start slurmctld slurmd
+fi
 
 echo -e "\nStartup complete"
 sleep infinity

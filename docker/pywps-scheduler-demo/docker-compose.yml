@@ -23,6 +23,7 @@ services:
     #    - "6817:6817"
     volumes:
       - ./slurm:/etc/slurm-llnl:ro
+    command: ["slurmctld"]
   slurm_wn1:
     hostname: slurm_wn1
     image: birdhouse/slurm
@@ -32,6 +33,7 @@ services:
       - ./slurm:/etc/slurm-llnl:ro
       - lib:/opt/birdhouse/var/lib
       - log:/opt/birdhouse/var/log
+    command: ["slurmd"]
   slurm_wn2:
     hostname: slurm_wn2
     image: birdhouse/slurm
@@ -41,6 +43,7 @@ services:
       - ./slurm:/etc/slurm-llnl:ro
       - lib:/opt/birdhouse/var/lib
       - log:/opt/birdhouse/var/log
+    command: ["slurmd"]
   db:
     hostname: db
     image: postgres
