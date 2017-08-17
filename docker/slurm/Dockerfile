@@ -44,14 +44,14 @@ ADD supervisord.conf /etc/supervisor/supervisord.conf
 RUN mkdir /var/log/supervisor
 
 # install emu wps
-RUN conda install -y -c birdhouse -c conda-forge emu pywps=4 dill psycopg2
+RUN conda install -y -c birdhouse -c conda-forge emu pywps=4 dill psycopg2 gunicorn=19.7
 
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \
   chown -R www-data /opt/birdhouse
 VOLUME /opt/birdhouse/var/lib
-#VOLUME /opt/birdhouse/var/log
-#VOLUME /opt/birdhouse/etc
+VOLUME /opt/birdhouse/var/log
+VOLUME /opt/birdhouse/etc
 
 EXPOSE 6817 6818
 CMD [ "/opt/conda/bin/supervisord",  "-c", "/etc/supervisor/supervisord.conf" ]
