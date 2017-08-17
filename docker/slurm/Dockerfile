@@ -48,5 +48,10 @@ RUN mkdir /var/log/supervisor
 # install emu wps
 RUN conda install -y -c birdhouse -c conda-forge emu pywps=4 dill psycopg2 gunicorn=19.7
 
+# copy start script
+COPY entrypoint.sh /entrypoint.sh
+
 EXPOSE 6817 6818
-CMD [ "/opt/conda/bin/supervisord",  "-c", "/etc/supervisor/supervisord.conf" ]
+
+# Start service ...
+CMD ["/entrypoint.sh"]
