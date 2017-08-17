@@ -1,7 +1,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5.4"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5.7"
 
 # install debian packages with slurm
 RUN apt-get update && \
@@ -49,9 +49,11 @@ RUN mkdir /var/log/supervisor
 RUN conda install -y -c birdhouse -c conda-forge emu pywps=4 dill psycopg2 gunicorn=19.7
 
 # copy start script
-COPY entrypoint.sh /entrypoint.sh
+ADD start-services.sh /etc/start-services.sh
+RUN chmod +x /etc/start-services.sh
 
+# ports
 EXPOSE 6817 6818
 
 # Start service ...
-CMD ["/entrypoint.sh"]
+CMD ["/etc/start-services.sh"]

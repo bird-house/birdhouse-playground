@@ -9,4 +9,11 @@
 #=============================================================#
 # keep external environment
 set -o allexport
-/opt/conda/bin/supervisord -c /etc/supervisor/supervisord.conf
+echo -e "\nStarting supervisor..."
+supervisord -c /etc/supervisor/supervisord.conf
+
+echo -e "\nStarting slurm..."
+supervisorctl -c /etc/supervisor/supervisord.conf start munge slurmctld slurmd
+
+echo -e "\nStartup complete"
+sleep infinity
