@@ -55,7 +55,7 @@ RUN conda update -y conda && \
   conda install -y supervisor
 
 # update configs
-ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
+ADD slurm.conf /etc/slurm-llnl/slurm.conf
 ADD supervisord.conf /etc/supervisord.conf
 
 # make supervisor folders
