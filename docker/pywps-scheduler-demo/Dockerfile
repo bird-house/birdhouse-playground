@@ -18,7 +18,7 @@ RUN usermod -m -d /home/demo www-data && \
   chown -R www-data /home/demo
 
 # add slurm config
-ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
+ADD slurm.conf /etc/slurm-llnl/slurm.conf
 
 # update emu wps config
 ADD custom.cfg /opt/birdhouse/src/emu/custom.cfg
