@@ -12,20 +12,18 @@ services:
       - "$HTTP_PORT:$HTTP_PORT"
       # nginx output port
       - "$OUTPUT_PORT:$OUTPUT_PORT"
-    volumes_from:
-      # shared volume /opt/birdhouse
-      - slurm
+    volumes:
+      - lib:/opt/birdhouse/var/lib
+      - log:/opt/birdhouse/var/log
   slurm:
     hostname: slurm
     image: birdhouse/slurm
+    volumes:
+      - lib:/opt/birdhouse/var/lib
+      - log:/opt/birdhouse/var/log
   #  ports:
+  #    - "6817:6817"
   #    - "6818:6818"
-  # HINT: Unomment the following lines to mount /opt/birdhouse
-  #  volumes:
-  #    - /opt/birdhouse/var/lib:/opt/birdhouse/var/lib
-  #    - /opt/birdhouse/var/log:/opt/birdhouse/var/log
-  #    - /opt/birdhouse/etc:/opt/birdhouse/etc
-  #  volume_driver: local
   db:
     hostname: db
     image: postgres
@@ -33,3 +31,7 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     #  ports:
     #    - "5432:5432"
+
+volumes:
+  lib:
+  log:

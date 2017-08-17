@@ -1,7 +1,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5.1"
 
 # install debian packages with slurm
 RUN apt-get update && \
@@ -49,9 +49,6 @@ RUN conda install -y -c birdhouse -c conda-forge emu pywps=4 dill psycopg2 gunic
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \
   chown -R www-data /opt/birdhouse
-VOLUME /opt/birdhouse/var/lib
-VOLUME /opt/birdhouse/var/log
-VOLUME /opt/birdhouse/etc
 
 EXPOSE 6817 6818
 CMD [ "/opt/conda/bin/supervisord",  "-c", "/etc/supervisor/supervisord.conf" ]
