@@ -162,25 +162,22 @@ Mount filesystem /opt/birdhouse
 -------------------------------
 
 To see what is happening on wps/slurm processing you currently need to mount the
-``/opt/birdhouse`` filesystem::
+``/opt/birdhouse`` filesystem. You can mount the named volumes::
 
-  # uncomment the volume section
-  $ vim docker-compose.yml
-  # prepare a mount point on your filesystem
-  $ sudo mkdir /opt/birdhouse
-  # change the permission
-  # the www-data of a debian system is used which has the uid=33
-  $ sudo chown www-data /opt/birdhouse
+  $ docker run -it --rm \
+    -v pywpsschedulerdemo_log:/shared/log \
+    -v  pywpsschedulerdemo_lib:/shared/lib \
+    ubuntu /bin/bash
 
 When you start the docker containers as described above you can watch the logs::
 
-  $ tail -f /opt/birdhouse/var/log/pywps/emu.log
-  $ tail -f /opt/birdhouse/var/log/supervisor/emu.log
+  $ tail -f /shared/var/log/pywps/emu.log
+  $ tail -f /shared/var/log/supervisor/emu.log
 
 And also the output and working directories (temp folders)::
 
-  $ ls /opt/birdhouse/var/lib/pywps/outputs/emu/
-  $ ls /opt/birdhouse/var/lib/pywps/tmp/emu/
+  $ ls /shared/var/lib/pywps/outputs/emu/
+  $ ls /shared/var/lib/pywps/tmp/emu/
 
 
 How to build the demo image
@@ -189,7 +186,3 @@ How to build the demo image
 Build from this directory using the enclosed Dockerfile::
 
   $ docker build --rm -t birdhouse/pywps-scheduler-demo .
-
-Build the Slurm image::
-
-  https://github.com/bird-house/birdhouse-playground/tree/master/docker/slurm
