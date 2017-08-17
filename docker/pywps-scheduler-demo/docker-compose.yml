@@ -19,14 +19,15 @@ services:
   slurm:
     hostname: slurm
     image: birdhouse/slurm
+    #  ports:
+    #    - "6817:6817"
     volumes:
       - ./slurm:/etc/slurm-llnl:ro
-  #  ports:
-  #    - "6817:6817"
-  #    - "6818:6818"
   slurm_wn1:
     hostname: slurm_wn1
     image: birdhouse/slurm
+    #  ports:
+    #    - "6818:6818"
     volumes:
       - ./slurm:/etc/slurm-llnl:ro
       - lib:/opt/birdhouse/var/lib
@@ -34,6 +35,8 @@ services:
   slurm_wn2:
     hostname: slurm_wn2
     image: birdhouse/slurm
+    #  ports:
+    #    - "6818:6818"
     volumes:
       - ./slurm:/etc/slurm-llnl:ro
       - lib:/opt/birdhouse/var/lib

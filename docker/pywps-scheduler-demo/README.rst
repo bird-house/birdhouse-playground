@@ -142,11 +142,8 @@ Advanced steps
 Customize environment
 ---------------------
 
-You can override the default environment of docker containers using environment variables::
-
-  $ HOSTNAME=mydocker.local docker-compose up
-
-Or by adding a ``docker-compose.override.yml`` file::
+You can override the default environment of docker containers using environment
+by adding a ``docker-compose.override.yml`` file::
 
   $ vim docker-compose.override.yml
   version: '2'
@@ -158,11 +155,11 @@ Or by adding a ``docker-compose.override.yml`` file::
   $ docker-compse up
 
 
-Mount filesystem /opt/birdhouse
--------------------------------
+Mount shared filesystem
+-----------------------
 
 To see what is happening on wps/slurm processing you currently need to mount the
-``/opt/birdhouse`` filesystem. You can mount the named volumes::
+shared filesystem. You can mount the named volumes::
 
   $ docker run -it --rm \
     -v pywpsschedulerdemo_log:/shared/log \
