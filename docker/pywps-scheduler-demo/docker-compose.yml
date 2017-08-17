@@ -2,22 +2,25 @@ version: '2.0'
 services:
   wps:
     image: birdhouse/pywps-scheduler-demo
-    hostname: $HOSTNAME
+    hostname: localhost
     environment:
-      HOSTNAME: $HOSTNAME
-      HTTP_PORT: $HTTP_PORT
-      OUTPUT_PORT: $OUTPUT_PORT
+      HOSTNAME: localhost
+      HTTP_PORT: 5000
+      OUTPUT_PORT: 5001
     ports:
       # wps port
-      - "$HTTP_PORT:$HTTP_PORT"
+      - "5000:5000"
       # nginx output port
-      - "$OUTPUT_PORT:$OUTPUT_PORT"
+      - "5001:5001"
     volumes:
+      - ./slurm:/etc/slurm-llnl:ro
       - lib:/opt/birdhouse/var/lib
       - log:/opt/birdhouse/var/log
   slurm:
     hostname: slurm
     image: birdhouse/slurm
+    volumes:
+      - ./slurm:/etc/slurm-llnl:ro
   #  ports:
   #    - "6817:6817"
   #    - "6818:6818"
@@ -25,16 +28,21 @@ services:
     hostname: slurm_wn1
     image: birdhouse/slurm
     volumes:
+      - ./slurm:/etc/slurm-llnl:ro
       - lib:/opt/birdhouse/var/lib
       - log:/opt/birdhouse/var/log
-  #  ports:
-  #    - "6817:6817"
-  #    - "6818:6818"
+  slurm_wn2:
+    hostname: slurm_wn2
+    image: birdhouse/slurm
+    volumes:
+      - ./slurm:/etc/slurm-llnl:ro
+      - lib:/opt/birdhouse/var/lib
+      - log:/opt/birdhouse/var/log
   db:
     hostname: db
     image: postgres
     environment:
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_PASSWORD: testdb
     #  ports:
     #    - "5432:5432"
 
