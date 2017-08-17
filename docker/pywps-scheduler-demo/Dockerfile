@@ -2,7 +2,7 @@
 FROM birdhouse/emu:latest
 MAINTAINER Birdhouse <wps@dkrz.de>
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.5.4"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.5.5"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
