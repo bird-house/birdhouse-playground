@@ -1,21 +1,3 @@
-######################################################
-#
-# Birdhouse Slurm Server
-# Tag: birdhouse/slurm
-#
-# This container provides a standard Slurm controller
-# and worker created on top of the continuumio/miniconda
-# image.
-#
-# Usage:
-# docker run -h slurm -i -t  \
-#            -p 6818:6818                 \ # Slurm
-#            --rm birdhouse/slurm
-#
-# https://github.com/bird-house/birdhouse-playground/tree/master/docker/slurm
-#
-######################################################
-
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
@@ -23,7 +5,7 @@ LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5"
 
 # install debian packages with slurm
 RUN apt-get update && \
-  apt-get install -y build-essential wget vim git munge slurm-llnl
+  apt-get install -y munge slurm-llnl
 
 # create munge key
 RUN /usr/sbin/create-munge-key
@@ -56,34 +38,20 @@ RUN conda update -y conda && \
 
 # update configs
 ADD slurm.conf /etc/slurm-llnl/slurm.conf
-ADD supervisord.conf /etc/supervisord.conf
+ADD supervisord.conf /etc/supervisor/supervisord.conf
 
 # make supervisor folders
 RUN mkdir /var/log/supervisor
 
-# install pywps via conda
-ADD environment.yml /root/environment.yml
-RUN conda env create -f /root/environment.yml
-
 # install emu wps
-WORKDIR /root
-RUN git clone https://github.com/bird-house/emu.git
-WORKDIR /root/emu
-RUN /bin/bash -c "source activate wps && python setup.py install"
-
-# get pywps ... scheduler extension is part of conda package
-#WORKDIR /root
-#RUN git clone https://github.com/bird-house/pywps.git
-#WORKDIR /root/pywps
-#RUN  git checkout dev-scheduler
-#RUN /bin/bash -c "source activate wps && conda remove -y pywps && python setup.py install"
+RUN conda install -y -c birdhouse -c conda-forge emu pywps=4 dill psycopg2
 
 # create birdhouse install directory
 RUN mkdir -p /opt/birdhouse && \
   chown -R www-data /opt/birdhouse
 VOLUME /opt/birdhouse/var/lib
-VOLUME /opt/birdhouse/var/log
-VOLUME /opt/birdhouse/etc
+#VOLUME /opt/birdhouse/var/log
+#VOLUME /opt/birdhouse/etc
 
 EXPOSE 6817 6818
-CMD [ "/opt/conda/bin/supervisord",  "-c", "/etc/supervisord.conf" ]
+CMD [ "/opt/conda/bin/supervisord",  "-c", "/etc/supervisor/supervisord.conf" ]
