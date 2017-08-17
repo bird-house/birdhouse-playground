@@ -1,43 +1,30 @@
 # vim:set ft=dockerfile:
-FROM phusion/baseimage:latest
+FROM birdhouse/emu:latest
 MAINTAINER Birdhouse <wps@dkrz.de>
 
-LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.6.4"
+LABEL Description="pywps scheduler demo" Vendor="Birdhouse" Version="0.5.1"
 
 # install debian packages with slurm drmaa
 RUN apt-get update && \
-  apt-get install -y bzip2 curl slurm-drmaa1 slurm-drmaa-dev slurm-llnl
+  apt-get install -y slurm-drmaa1 slurm-drmaa-dev slurm-llnl
 
-# add slurm config
-ADD slurm.conf /etc/slurm-llnl/slurm.conf
+# Install conda packages for scheduler extension
+RUN conda update -y conda && \
+  conda install -y -n emu -c birdhouse -c conda-forge pywps psycopg2 drmaa dill
 
 # change demo user home
 RUN usermod -m -d /home/demo www-data && \
   mkdir /home/demo && \
   chown -R www-data /home/demo
 
-# work in demo as user www-demo
-WORKDIR /home/demo
-USER www-data
+# add slurm config
+ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
 
-# install conda
-RUN curl -LO https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-RUN bash Miniconda2-latest-Linux-x86_64.sh -b -p /home/demo/miniconda2
-ENV PATH="/home/demo/miniconda2/bin:${PATH}"
+# update emu wps config
+ADD custom.cfg /opt/birdhouse/src/emu/custom.cfg
 
-# install emu wps with scheduler extension and postgres
-RUN conda install --yes --channel-priority \
-  -c birdhouse -c conda-forge \
-  emu pywps=4 drmaa dill psycopg2
-
-# add wps config
-ADD pywps.cfg /home/demo/pywps.cfg
-
-# add pywps folders
-RUN mkdir -p "/home/demo/pywps/tmp" && \
-  mkdir -p "/home/demo/pywps/outputs"
-
-EXPOSE 5000
+# copy start script
+COPY entrypoint.sh /entrypoint.sh
 
 # Start service ...
-CMD ["/home/demo/miniconda2/bin/emu", "-a", "-c", "/home/demo/pywps.cfg"]
+CMD ["/entrypoint.sh"]
