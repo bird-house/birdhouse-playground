@@ -6,3 +6,5 @@ services:
     ports:
       - "6818:6818"
       - "6817:6817"
+    volumes:
+      - ./slurm:/etc/slurm-llnl:ro

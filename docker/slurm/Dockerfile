@@ -1,7 +1,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5.2"
+LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.5.3"
 
 # install debian packages with slurm
 RUN apt-get update && \
@@ -32,12 +32,14 @@ RUN touch /var/spool/last_config_lite && \
 RUN chown root:slurm /var/spool && \
   chmod g+w /var/spool
 
+# add slurm config
+ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
+
 # Install conda packages with supervisor
 RUN conda update -y conda && \
   conda install -y supervisor
 
-# update configs
-ADD slurm.conf /etc/slurm-llnl/slurm.conf
+# add supervisor config
 ADD supervisord.conf /etc/supervisor/supervisord.conf
 
 # make supervisor folders
