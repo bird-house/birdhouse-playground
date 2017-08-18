@@ -1,7 +1,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm Demo" Vendor="Birdhouse" Version="0.6.0"
+LABEL Description="Slurm" Vendor="Birdhouse" Version="0.6.0"
 
 # install debian packages with slurm
 RUN apt-get update && \
@@ -44,9 +44,6 @@ ADD supervisord.conf /etc/supervisor/supervisord.conf
 
 # make supervisor folders
 RUN mkdir /var/log/supervisor
-
-# install emu wps
-RUN conda install -y -c birdhouse -c conda-forge emu pywps=4 dill psycopg2 gunicorn=19.7
 
 # copy start script
 ADD start-services.sh /etc/start-services.sh
