@@ -1,7 +1,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm" Vendor="Birdhouse" Version="0.6.0"
+LABEL Description="Slurm" Vendor="Birdhouse" Version="0.6.1"
 
 # install debian packages with slurm
 RUN apt-get update && \
@@ -54,3 +54,4 @@ EXPOSE 6817 6818
 
 # Start service ...
 ENTRYPOINT ["/etc/start-services.sh"]
+CMD ["slurmctld", "slurmd"]
