@@ -1,4 +1,4 @@
-FROM birdhouse/wps
+FROM birdhouse/slurm
 
 MAINTAINER Birdhouse <wps@dkrz.de>
 LABEL Description="Slurm with Emu WPS" Vendor="Birdhouse" Version="0.6.0"
