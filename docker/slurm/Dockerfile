@@ -1,7 +1,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm" Vendor="Birdhouse" Version="0.6.7"
+LABEL Description="Slurm" Vendor="Birdhouse" Version="0.7.0"
 
 # install sudo
 RUN apt-get update && \
@@ -10,7 +10,7 @@ RUN apt-get update && \
 # get ansible
 RUN git clone https://github.com/bird-house/birdhouse-playground.git /opt/birdhouse-playground
 WORKDIR /opt/birdhouse-playground/ansible/ansible-slurm
-RUN git checkout develop
+#RUN git checkout develop
 
 # bootstrap ansible
 RUN bash bootstrap.sh
