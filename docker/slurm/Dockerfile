@@ -1,7 +1,7 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm" Vendor="Birdhouse" Version="0.7.1"
+LABEL Description="Slurm" Vendor="Birdhouse" Version="0.7.3"
 
 # install sudo
 RUN apt-get update && \
@@ -16,7 +16,7 @@ WORKDIR /opt/birdhouse-ansible/slurm
 RUN bash bootstrap.sh
 
 # run ansible
-RUN ansible-playbook -c local -i hosts.example -e slurm_server_name=slurm site.yml
+RUN ansible-playbook -e slurm_server_name=slurm playbooks/slurm.yml
 
 # copy start script
 ADD start-services.sh /etc/start-services.sh
