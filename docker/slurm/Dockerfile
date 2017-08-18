@@ -1,49 +1,22 @@
 FROM continuumio/miniconda
 
 MAINTAINER Birdhouse <wps@dkrz.de>
-LABEL Description="Slurm" Vendor="Birdhouse" Version="0.6.1"
+LABEL Description="Slurm" Vendor="Birdhouse" Version="0.6.7"
 
-# install debian packages with slurm
+# install sudo
 RUN apt-get update && \
-  apt-get install -y munge slurm-llnl
+  apt-get install -y git sudo
 
-# create munge key
-RUN /usr/sbin/create-munge-key
+# get ansible
+RUN git clone https://github.com/bird-house/birdhouse-playground.git /opt/birdhouse-playground
+WORKDIR /opt/birdhouse-playground/ansible/ansible-slurm
+RUN git checkout develop
 
-# fix munge folders
-RUN mkdir /var/run/munge && \
-  chown -R munge:munge /var/run/munge && \
-  chmod 755 /var/run/munge
+# bootstrap ansible
+RUN bash bootstrap.sh
 
-# fix munge permissions
-RUN chmod g-w /var/log && \
-  chmod g-w /var/log/munge
-
-# fix slurm folders
-RUN mkdir /var/log/slurm && \
-  touch /var/log/slurm/job_completions && \
-  touch /var/log/slurm/accounting && \
-  chown -R slurm:slurm /var/log/slurm
-
-RUN touch /var/spool/last_config_lite && \
-  touch /var/spool/last_config_lite.new && \
-  chown slurm:slurm /var/spool/last_config_lite*
-
-RUN chown root:slurm /var/spool && \
-  chmod g+w /var/spool
-
-# add slurm config
-ADD slurm/slurm.conf /etc/slurm-llnl/slurm.conf
-
-# Install conda packages with supervisor
-RUN conda update -y conda && \
-  conda install -y supervisor
-
-# add supervisor config
-ADD supervisord.conf /etc/supervisor/supervisord.conf
-
-# make supervisor folders
-RUN mkdir /var/log/supervisor
+# run ansible
+RUN ansible-playbook -c local -i hosts.example -e slurm_server_name=slurm site.yml
 
 # copy start script
 ADD start-services.sh /etc/start-services.sh
