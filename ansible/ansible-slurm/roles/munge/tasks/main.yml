@@ -2,17 +2,8 @@
 - name: install munge
   package: name=munge
 
-#- name: create munge key
-#  command: /usr/sbin/create-munge-key
-
-- stat: path=/etc/munge/munge.key
-  register: munge_key
-
-- shell: echo -n "{{ slurm_password }}" | sha512sum | cut -d' ' -f1 >/etc/munge/munge.key
-  when: not munge_key.stat.exists
-
-- name: set correct permissions to munge.key
-  file: path=/etc/munge/munge.key owner=munge group=munge mode=0400
+- name: create munge key
+  command: /usr/sbin/create-munge-key
 
 - name: create folders used by munge and set munge owner
   file: path={{item}} state=directory owner=munge group=munge mode=0755
