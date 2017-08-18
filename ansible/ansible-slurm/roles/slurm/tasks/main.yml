@@ -3,26 +3,6 @@
   apt: name=slurm-llnl
   when: ansible_os_family == "Debian"
 
-- name: create slurm user and group
-  user: name="slurm" shell=/bin/bash system=yes
-  when: ansible_os_family == "RedHat"
-
-- name: install rpm slurm packages
-  yum:
-    name:
-      - slurm
-      - slurm-plugins
-      - slurm-munge
-    state: present
-  when: ansible_os_family == "RedHat"
-
-- name: set SLURM facts on CentOS
-  set_fact:
-    SLURM_CONF: /etc/slurm/slurm.conf
-    SLURM_CONTROL: slurmctld
-    SLURM_SERVICE: slurmd
-  when: ansible_os_family == "RedHat"
-
 - name: set SLURM facts on Debian
   set_fact:
     SLURM_CONF: /etc/slurm-llnl/slurm.conf
