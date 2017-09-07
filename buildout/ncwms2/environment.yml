@@ -2,6 +2,7 @@ name: ncwms2
 channels:
   - defaults
   - birdhouse
+  - conda-forge
 dependencies:
   - python=2.7.13
   - setuptools=27.2.0

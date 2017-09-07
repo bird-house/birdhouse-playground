@@ -149,6 +149,7 @@ conda_config: anaconda
 	@"$(ANACONDA_HOME)/bin/conda" config --add channels defaults
 	@"$(ANACONDA_HOME)/bin/conda" config --add channels birdhouse
 	@"$(ANACONDA_HOME)/bin/conda" config --add channels ioos
+	@"$(ANACONDA_HOME)/bin/conda" config --add channels conda-forge
 
 .PHONY: conda_env
 conda_env: anaconda conda_config
