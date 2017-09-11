@@ -2,7 +2,7 @@
 FROM birdhouse/bird-base:latest
 MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/thredds
 
-LABEL Description="Thredds data server" Vendor="Unidata" Version="4.6.2"
+LABEL Description="Thredds data server" Vendor="Unidata" Version="4.6.10"
 
 # Configure hostname and user for services 
 ENV HOSTNAME localhost
