@@ -2,7 +2,7 @@
 FROM birdhouse/bird-base:latest
 MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/redis
 
-LABEL Description="Redis in-memory data structure store" Vendor="Redis" Version="3.0.3"
+LABEL Description="Redis in-memory data structure store" Vendor="Redis" Version="3.2.0"
 
 # Configure hostname and user for services 
 ENV HOSTNAME localhost

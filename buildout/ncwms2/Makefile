@@ -13,8 +13,9 @@ OS_NAME := $(shell uname -s 2>/dev/null || echo "unknown")
 CPU_ARCH := $(shell uname -m 2>/dev/null || uname -p 2>/dev/null || echo "unknown")
 
 # Python
-SETUPTOOLS_VERSION := 27.2.0
-CONDA_VERSION := 4.2.13
+SETUPTOOLS_VERSION := 36.4.0
+CONDA_VERSION := 4.4.0
+PYTHON_VERSION_MAJOR := 3
 
 # Anaconda
 ANACONDA_HOME ?= $(HOME)/anaconda
@@ -31,7 +32,13 @@ OUTPUT_PORT ?= 8090
 # choose anaconda installer depending on your OS
 ANACONDA_URL = https://repo.continuum.io/miniconda
 ifeq "$(OS_NAME)" "Linux"
+ifeq "$(PYTHON_VERSION_MAJOR)" "2"
 FN := Miniconda2-latest-Linux-x86_64.sh
+else ifeq "$(PYTHON_VERSION_MAJOR)" "3"
+FN := Miniconda3-latest-Linux-x86_64.sh
+else
+FN := unknown
+endif
 else ifeq "$(OS_NAME)" "Darwin"
 FN := Miniconda2-latest-MacOSX-x86_64.sh
 else
@@ -90,15 +97,16 @@ version:
 .PHONY: info
 info:
 	@echo "Informations about your Bird:"
-	@echo "  OS_NAME             $(OS_NAME)"
-	@echo "  CPU_ARCH            $(CPU_ARCH)"
-	@echo "  Anaconda Home       $(ANACONDA_HOME)"
-	@echo "  Conda Environment   $(CONDA_ENV). Use \`source activate $(CONDA_ENV)' to activate it."
-	@echo "  Conda Prefix        $(CONDA_ENV_PATH)"
-	@echo "  APP_NAME            $(APP_NAME)"
-	@echo "  APP_ROOT            $(APP_ROOT)"
-	@echo "  DOWNLOAD_CACHE      $(DOWNLOAD_CACHE)"
-	@echo "  DOCKER_IMAGE        $(DOCKER_IMAGE)"
+	@echo "  OS_NAME              = $(OS_NAME)"
+	@echo "  CPU_ARCH             = $(CPU_ARCH)"
+	@echo "  Anaconda Home        = $(ANACONDA_HOME)"
+	@echo "  Python Version Major = $(PYTHON_VERSION_MAJOR)"
+	@echo "  Conda Environment    = $(CONDA_ENV). Use \`source activate $(CONDA_ENV)' to activate it."
+	@echo "  Conda Prefix         = $(CONDA_ENV_PATH)"
+	@echo "  APP_NAME             = $(APP_NAME)"
+	@echo "  APP_ROOT             = $(APP_ROOT)"
+	@echo "  DOWNLOAD_CACHE       = $(DOWNLOAD_CACHE)"
+	@echo "  DOCKER_IMAGE         = $(DOCKER_IMAGE)"
 
 ## Helper targets ... ensure that Makefile etc are in place
 
