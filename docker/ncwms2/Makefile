@@ -14,6 +14,7 @@ ANACONDA_HOME ?= $(HOME)/anaconda
 CONDA_ENV := birdhouse
 CONDA_ENVS_DIR ?= $(HOME)/.conda/envs
 PREFIX := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
+PYTHON_VERSION_MAJOR := 3
 
 # Configuration used by update-config
 HOSTNAME ?= localhost
@@ -24,7 +25,13 @@ LOG_LEVEL ?= WARN
 # choose anaconda installer depending on your OS
 ANACONDA_URL = http://repo.continuum.io/miniconda
 ifeq "$(OS_NAME)" "Linux"
-FN := Miniconda-latest-Linux-x86_64.sh
+ifeq "$(PYTHON_VERSION_MAJOR)" "2"
+FN := Miniconda2-latest-Linux-x86_64.sh
+else ifeq "$(PYTHON_VERSION_MAJOR)" "3"
+FN := Miniconda3-latest-Linux_x86_64.sh
+else
+FN := unknown
+endif
 else ifeq "$(OS_NAME)" "Darwin"
 FN := Miniconda-3.7.0-MacOSX-x86_64.sh
 else
@@ -82,16 +89,17 @@ version:
 .PHONY: info
 info:
 	@echo "Informations about your System:\n"
-	@echo "\t OS_NAME          \t= $(OS_NAME)"
-	@echo "\t CPU_ARCH         \t= $(CPU_ARCH)"
-	@echo "\t Anaconda         \t= $(FN)"
-	@echo "\t Anaconda Home    \t= $(ANACONDA_HOME)"
-	@echo "\t Birdhouse Env    \t= $(PREFIX)"
-	@echo "\t APP_NAME         \t= $(APP_NAME)"
-	@echo "\t APP_ROOT         \t= $(APP_ROOT)"
-	@echo "\t DOWNLOAD_CACHE   \t= $(DOWNLOAD_CACHE)"
-	@echo "\t DOCKER_IMAGE     \t= $(DOCKER_IMAGE)"
-	@echo "\t DOCKER_CONTAINER \t= $(DOCKER_CONTAINER)"
+	@echo "\t OS_NAME          	\t= $(OS_NAME)"
+	@echo "\t CPU_ARCH         	\t= $(CPU_ARCH)"
+	@echo "\t Anaconda         	\t= $(FN)"
+	@echo "\t Anaconda Home    	\t= $(ANACONDA_HOME)"
+	@echo "\t Python Version Major 	\t= $(PYTHON_VERSION_MAJOR)"
+	@echo "\t Birdhouse Env    	\t= $(PREFIX)"
+	@echo "\t APP_NAME         	\t= $(APP_NAME)"
+	@echo "\t APP_ROOT         	\t= $(APP_ROOT)"
+	@echo "\t DOWNLOAD_CACHE   	\t= $(DOWNLOAD_CACHE)"
+	@echo "\t DOCKER_IMAGE     	\t= $(DOCKER_IMAGE)"
+	@echo "\t DOCKER_CONTAINER 	\t= $(DOCKER_CONTAINER)"
 
 ## Helper targets ... ensure that Makefile etc are in place
 
