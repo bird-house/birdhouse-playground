@@ -2,7 +2,7 @@
 FROM birdhouse/bird-base:latest
 MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/ncwms2
 
-LABEL Description="ncWMS2 Web Map Service" Vendor="Reading eScience Centre" Version="2.0.4"
+LABEL Description="ncWMS2 Web Map Service" Vendor="Reading eScience Centre" Version="2.2.8"
 
 # Configure hostname and user for services 
 ENV HOSTNAME localhost
