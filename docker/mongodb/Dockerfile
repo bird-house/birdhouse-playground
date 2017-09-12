@@ -2,7 +2,7 @@
 FROM birdhouse/bird-base:latest
 MAINTAINER https://github.com/bird-house/birdhouse-playground/tree/master/mongodb
 
-LABEL Description="MongoDB NoSQL Database" Vendor="MongoDB" Version="2.4.6"
+LABEL Description="MongoDB NoSQL Database" Vendor="MongoDB" Version="3.3.9"
 
 # Configure hostname and user for services 
 ENV HOSTNAME localhost
