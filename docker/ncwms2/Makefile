@@ -10,9 +10,9 @@ OS_NAME := $(shell uname -s 2>/dev/null || echo "unknown")
 CPU_ARCH := $(shell uname -m 2>/dev/null || uname -p 2>/dev/null || echo "unknown")
 
 # Anaconda 
-ANACONDA_HOME ?= $(HOME)/anaconda
+ANACONDA_HOME ?= opt/anaconda
 CONDA_ENV := birdhouse
-CONDA_ENVS_DIR ?= $(HOME)/.conda/envs
+CONDA_ENVS_DIR ?= opt/conda/envs
 PREFIX := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
 PYTHON_VERSION_MAJOR := 3
 
