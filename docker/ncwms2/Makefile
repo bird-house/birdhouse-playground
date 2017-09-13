@@ -9,11 +9,12 @@ APP_NAME := $(shell basename $(APP_ROOT))
 OS_NAME := $(shell uname -s 2>/dev/null || echo "unknown")
 CPU_ARCH := $(shell uname -m 2>/dev/null || uname -p 2>/dev/null || echo "unknown")
 
-# Anaconda 
-ANACONDA_HOME ?= $(HOME)/anaconda
+# Paths 
+PREFIX_ROOT := opt
+ANACONDA_HOME ?= $(PREFIX_ROOT)/anaconda
 CONDA_ENV := birdhouse
-CONDA_ENVS_DIR ?= $(HOME)/.conda/envs
-PREFIX := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
+PREFIX := $(PREFIX_ROOT)/$(CONDA_ENV)
+CONDA_ENVS_DIR ?= $(PREFIX_ROOT)/conda/envs
 PYTHON_VERSION_MAJOR := 3
 
 # Configuration used by update-config
@@ -94,7 +95,9 @@ info:
 	@echo "\t Anaconda         	\t= $(FN)"
 	@echo "\t Anaconda Home    	\t= $(ANACONDA_HOME)"
 	@echo "\t Python Version Major 	\t= $(PYTHON_VERSION_MAJOR)"
-	@echo "\t Birdhouse Env    	\t= $(PREFIX)"
+	@echo "\t Prefix Root           \t= $(PREFIX_ROOT)"
+	@echo "\t Prefix                \t= $(PREFIX)"
+	@echo "\t Conda Env    		\t= $(CONDA_ENV)"
 	@echo "\t APP_NAME         	\t= $(APP_NAME)"
 	@echo "\t APP_ROOT         	\t= $(APP_ROOT)"
 	@echo "\t DOWNLOAD_CACHE   	\t= $(DOWNLOAD_CACHE)"
