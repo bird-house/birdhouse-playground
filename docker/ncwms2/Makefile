@@ -18,10 +18,10 @@ PYTHON_VERSION_MAJOR := 2
 # Anaconda
 ANACONDA_HOME ?= $(HOME)/anaconda
 CONDA_ENV := birdhouse
-PREFIX := $(PREFIX_ROOT)/$(CONDA_ENV)
 CONDA_ENVS_DIR ?= $(HOME)/.conda/envs
 CONDA_ENV_PATH := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
 CONDA_PINNED := $(APP_ROOT)/requirements/conda_pinned 
+PREFIX := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
 
 # Configuration used by update-config
 HOSTNAME ?= localhost
