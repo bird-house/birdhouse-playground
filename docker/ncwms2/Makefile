@@ -81,10 +81,10 @@ help:
 	@echo "\t docs        \t- Generates HTML documentation with Sphinx."
 	@echo "\t selfupdate  \t- Updates this Makefile."
 	@echo "\nSupervisor targets:\n"
-	@echo "\t start       \t- Starts supervisor service: $(PREFIX)/etc/init.d/supervisord start"
-	@echo "\t stop        \t- Stops supervisor service: $(PREFIX)/etc/init.d/supervisord stop"
-	@echo "\t restart     \t- Restarts supervisor service: $(PREFIX)/etc/init.d/supervisord restart"
-	@echo "\t status      \t- Supervisor status: $(PREFIX)/bin/supervisorctl status"
+	@echo "\t start       \t- Starts supervisor service: sudo bin/supervisord start (link -> sudo $(PREFIX)/etc/init.d/supervisord start)"
+	@echo "\t stop        \t- Stops supervisor service: bin/supervisord stop (link -> $(PREFIX)/etc/init.d/supervisord stop)"
+	@echo "\t restart     \t- Restarts supervisor service: sudo bin/supervisord restart (link -> sudo $(PREFIX)/etc/init.d/supervisord restart)"
+	@echo "\t status      \t- Supervisor status: bin/supervisorctl status (link -> $(PREFIX)/etc/init.d/supervisorctl status)"
 	@echo "\nDocker targets:\n"
 	@echo "\t Dockerfile  \t- Generates a Dockerfile for this application."
 	@echo "\t dockerbuild \t- Build a docker image for this application."
@@ -278,7 +278,7 @@ selfupdate: bootstrap.sh requirements.sh .gitignore
 .PHONY: start
 start:
 	@echo "Starting supervisor service ..."
-	bin/supervisord start
+	sudo bin/supervisord start
 
 .PHONY: stop
 stop:
@@ -288,7 +288,7 @@ stop:
 .PHONY: restart
 restart:
 	@echo "Restarting supervisor service ..."
-	bin/supervisord restart
+	sudo bin/supervisord restart
 
 .PHONY: status
 status:

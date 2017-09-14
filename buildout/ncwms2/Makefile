@@ -277,7 +277,7 @@ selfupdate: bootstrap.sh requirements.sh .gitignore
 .PHONY: start
 start:
 	@echo "Starting supervisor service ..."
-	bin/supervisord start
+	sudo bin/supervisord start
 
 .PHONY: stop
 stop:
@@ -287,7 +287,7 @@ stop:
 .PHONY: restart
 restart:
 	@echo "Restarting supervisor service ..."
-	bin/supervisord restart
+	sudo bin/supervisord restart
 
 .PHONY: status
 status:
