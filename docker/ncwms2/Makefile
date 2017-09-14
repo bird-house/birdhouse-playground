@@ -9,12 +9,19 @@ APP_NAME := $(shell basename $(APP_ROOT))
 OS_NAME := $(shell uname -s 2>/dev/null || echo "unknown")
 CPU_ARCH := $(shell uname -m 2>/dev/null || uname -p 2>/dev/null || echo "unknown")
 
-# Anaconda 
+# Python
+SETUPTOOLS_VERSION := 36.4.0
+CONDA_VERSION := 4.3
+BUILDOUT_VERSION := 2.9.2
+PYTHON_VERSION_MAJOR := 2
+
+# Anaconda
 ANACONDA_HOME ?= $(HOME)/anaconda
 CONDA_ENV := birdhouse
 CONDA_ENVS_DIR ?= $(HOME)/.conda/envs
+CONDA_ENV_PATH := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
+CONDA_PINNED := $(APP_ROOT)/requirements/conda_pinned 
 PREFIX := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
-PYTHON_VERSION_MAJOR := 3
 
 # Configuration used by update-config
 HOSTNAME ?= localhost
@@ -74,10 +81,10 @@ help:
 	@echo "\t docs        \t- Generates HTML documentation with Sphinx."
 	@echo "\t selfupdate  \t- Updates this Makefile."
 	@echo "\nSupervisor targets:\n"
-	@echo "\t start       \t- Starts supervisor service: $(PREFIX)/etc/init.d/supervisord start"
-	@echo "\t stop        \t- Stops supervisor service: $(PREFIX)/etc/init.d/supervisord stop"
-	@echo "\t restart     \t- Restarts supervisor service: $(PREFIX)/etc/init.d/supervisord restart"
-	@echo "\t status      \t- Supervisor status: $(PREFIX)/bin/supervisorctl status"
+	@echo "\t start       \t- Starts supervisor service: sudo bin/supervisord start (link -> sudo $(PREFIX)/etc/init.d/supervisord start)"
+	@echo "\t stop        \t- Stops supervisor service: bin/supervisord stop (link -> $(PREFIX)/etc/init.d/supervisord stop)"
+	@echo "\t restart     \t- Restarts supervisor service: sudo bin/supervisord restart (link -> sudo $(PREFIX)/etc/init.d/supervisord restart)"
+	@echo "\t status      \t- Supervisor status: bin/supervisorctl status (link -> $(PREFIX)/etc/init.d/supervisorctl status)"
 	@echo "\nDocker targets:\n"
 	@echo "\t Dockerfile  \t- Generates a Dockerfile for this application."
 	@echo "\t dockerbuild \t- Build a docker image for this application."
@@ -94,7 +101,8 @@ info:
 	@echo "\t Anaconda         	\t= $(FN)"
 	@echo "\t Anaconda Home    	\t= $(ANACONDA_HOME)"
 	@echo "\t Python Version Major 	\t= $(PYTHON_VERSION_MAJOR)"
-	@echo "\t Birdhouse Env    	\t= $(PREFIX)"
+	@echo "\t Prefix                \t= $(PREFIX)"
+	@echo "\t Conda Env    		\t= $(CONDA_ENV)"
 	@echo "\t APP_NAME         	\t= $(APP_NAME)"
 	@echo "\t APP_ROOT         	\t= $(APP_ROOT)"
 	@echo "\t DOWNLOAD_CACHE   	\t= $(DOWNLOAD_CACHE)"
@@ -152,8 +160,12 @@ anaconda:
 .PHONY: conda_config
 conda_config: anaconda
 	@echo "Update ~/.condarc"
+	@-"$(ANACONDA_HOME)/bin/conda" install -y conda=$(CONDA_VERSION) requests
 	@"$(ANACONDA_HOME)/bin/conda" config --add envs_dirs $(CONDA_ENVS_DIR)
-	@"$(ANACONDA_HOME)/bin/conda" config --set ssl_verify false
+	@"$(ANACONDA_HOME)/bin/conda" config --set ssl_verify true
+	@"$(ANACONDA_HOME)/bin/conda" config --set use_pip true
+	@"$(ANACONDA_HOME)/bin/conda" config --set channel_priority true
+	@"$(ANACONDA_HOME)/bin/conda" config --set auto_update_conda false
 	@"$(ANACONDA_HOME)/bin/conda" config --add channels defaults
 	@"$(ANACONDA_HOME)/bin/conda" config --add channels birdhouse
 	@"$(ANACONDA_HOME)/bin/conda" config --add channels ioos
@@ -161,12 +173,17 @@ conda_config: anaconda
 
 .PHONY: conda_env
 conda_env: anaconda conda_config
-	@test -d $(PREFIX) || "$(ANACONDA_HOME)/bin/conda" create -m -p $(PREFIX) -c ioos --yes python setuptools curl pyopenssl genshi mako
+	@echo "Update conda environment $(CONDA_ENV) ..."
+	@test -d $(CONDA_ENV_PATH) || "$(ANACONDA_HOME)/bin/conda" env create -n $(CONDA_ENV) -f environment.yml
+	"$(ANACONDA_HOME)/bin/conda" install -y -n $(CONDA_ENV) setuptools=$(SETUPTOOLS_VERSION)
+#	@test -d $(PREFIX) || "$(ANACONDA_HOME)/bin/conda" create -m -p $(PREFIX) -c ioos --yes python setuptools curl pyopenssl genshi mako
 
 .PHONY: conda_pinned
 conda_pinned: conda_env
 	@echo "Update pinned conda packages ..."
-	@test -d $(PREFIX) && curl https://raw.githubusercontent.com/bird-house/birdhousebuilder.bootstrap/master/conda_pinned --silent --insecure --output "$(PREFIX)/conda-meta/pinned" 
+#	@test -d $(PREFIX) && curl https://raw.githubusercontent.com/bird-house/birdhousebuilder.bootstrap/master/conda_pinned --silent --insecure --output "$(PREFIX)/conda-meta/pinned" 
+#	@test -d "$(CONDA_ENV_PATH)/conda-meta" || mkdir -v -p "$(CONDA_ENV_PATH)/conda-meta/pinned"
+#	@test -d $(CONDA_ENV_PATH) && test -f $(CONDA_PINNED) && cp -f "$(CONDA_PINNED)" "$(CONDA_ENV_PATH)/conda-meta/pinned" 
 
 .PHONY: conda_clean
 conda_clean: anaconda conda_config
@@ -189,17 +206,17 @@ sysinstall:
 .PHONY: install
 install: bootstrap
 	@echo "Installing application with buildout ..."
-	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout -c custom.cfg"
+	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout buildout:anaconda-home=$(ANACONDA_HOME) -c custom.cfg"
 
 .PHONY: update
 update:
 	@echo "Update application config with buildout ..."
-	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout -o -c custom.cfg"
+	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout buildout:anaconda-home=$(ANACONDA_HOME) -o -c custom.cfg"
 
 .PHONY: update-config
 update-config:
 	@echo "Update application config with buildout ..."
-	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout settings:hostname=$(HOSTNAME) settings:output-port=$(OUTPUT_PORT) settings:log-level=$(LOG_LEVEL) -o -c custom.cfg"
+	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout buildout:anaconda-home=$(ANACONDA_HOME) settings:hostname=$(HOSTNAME) settings:output-port=$(OUTPUT_PORT) settings:log-level=$(LOG_LEVEL) -o -c custom.cfg"
 
 .PHONY: update-user
 update-user:
@@ -261,22 +278,22 @@ selfupdate: bootstrap.sh requirements.sh .gitignore
 .PHONY: start
 start:
 	@echo "Starting supervisor service ..."
-	$(PREFIX)/etc/init.d/supervisord start
+	sudo bin/supervisord start
 
 .PHONY: stop
 stop:
 	@echo "Stopping supervisor service ..."
-	$(PREFIX)/etc/init.d/supervisord stop
+	-bin/supervisord stop
 
 .PHONY: restart
 restart:
 	@echo "Restarting supervisor service ..."
-	$(PREFIX)/etc/init.d/supervisord restart
+	sudo bin/supervisord restart
 
 .PHONY: status
 status:
 	@echo "Supervisor status ..."
-	$(PREFIX)/bin/supervisorctl -c ${PREFIX}/etc/supervisor/supervisord.conf status
+	bin/supervisorctl status
 
 
 ## Docker targets

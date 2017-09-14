@@ -15,7 +15,7 @@ CPU_ARCH := $(shell uname -m 2>/dev/null || uname -p 2>/dev/null || echo "unknow
 # Python
 SETUPTOOLS_VERSION := 36.4.0
 CONDA_VERSION := 4.4.0
-PYTHON_VERSION_MAJOR := 3
+PYTHON_VERSION_MAJOR := 2 
 
 # Anaconda
 ANACONDA_HOME ?= $(HOME)/anaconda
@@ -277,7 +277,7 @@ selfupdate: bootstrap.sh requirements.sh .gitignore
 .PHONY: start
 start:
 	@echo "Starting supervisor service ..."
-	bin/supervisord start
+	sudo bin/supervisord start
 
 .PHONY: stop
 stop:
@@ -287,7 +287,7 @@ stop:
 .PHONY: restart
 restart:
 	@echo "Restarting supervisor service ..."
-	bin/supervisord restart
+	sudo bin/supervisord restart
 
 .PHONY: status
 status:
