@@ -15,7 +15,10 @@ ANACONDA_HOME ?= $(PREFIX_ROOT)/anaconda
 CONDA_ENV := birdhouse
 PREFIX := $(PREFIX_ROOT)/$(CONDA_ENV)
 CONDA_ENVS_DIR ?= $(PREFIX_ROOT)/conda/envs
-PYTHON_VERSION_MAJOR := 3
+CONDA_PINNED := $(APP_ROOT)/requirements/conda_pinned 
+
+# Python
+PYTHON_VERSION_MAJOR := 2
 
 # Configuration used by update-config
 HOSTNAME ?= localhost
@@ -169,7 +172,7 @@ conda_env: anaconda conda_config
 .PHONY: conda_pinned
 conda_pinned: conda_env
 	@echo "Update pinned conda packages ..."
-	@test -d $(PREFIX) && curl https://raw.githubusercontent.com/bird-house/birdhousebuilder.bootstrap/master/conda_pinned --silent --insecure --output "$(PREFIX)/conda-meta/pinned" 
+	@test -d $(CONDA_ENV_PATH) && test -f $(CONDA_PINNED) && cp -f "$(CONDA_PINNED)" "$(CONDA_ENV_PATH)/conda-meta/pinned" 
 
 .PHONY: conda_clean
 conda_clean: anaconda conda_config
