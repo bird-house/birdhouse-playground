@@ -2,4 +2,4 @@
 # Variables listed here are applicable to all host groups
 
 prefix: /tmp/birdhouse
-conda_prefix: /home/pingu/.conda/envs/bird-demo
+conda_prefix: /opt/anaconda/envs/bird-demo
