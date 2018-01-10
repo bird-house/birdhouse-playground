@@ -1,6 +1,6 @@
 ---
 - name: restart nginx
-  supervisorctl:
-    name: nginx
-    state: restarted
-    config: "{{ prefix }}/etc/supervisor/supervisord.conf"
+  service: name=nginx state=restarted
+
+- name: nginx started
+  service: name=nginx state=started

@@ -1,35 +1,28 @@
 ---
-- name: Create etc/nginx directory
+- name: Install nginx
+  when: ansible_os_family == 'Debian'
+  apt:
+    name=nginx
+    state=present
+
+- name: Get nginx version
+  shell: "/usr/sbin/nginx -v 2>&1 >/dev/null | sed -r 'sX^.*nginx/([0-9.]+).*$X\\1X'"
+  register: nginx_v_result
+  become: no
+
+- name: Make sure sample host is absent
+  when: ansible_os_family == 'Debian'
   file:
-    path: "{{ prefix }}/etc/nginx/sites.d"
-    state: directory
-    mode: 0755
-
-- name: Create var/log/nginx directory
-  file:
-    path: "{{ prefix }}/var/log/nginx"
-    state: directory
-    mode: 0755
-
-- name: Create var/tmp/nginx directory
-  file:
-    path: "{{ prefix }}/var/tmp/nginx"
-    state: directory
-    mode: 0755
-
-- name: Copy nginx supervisor configuration
-  template: src=supervisor.conf dest={{ prefix }}/etc/supervisor/conf.d/nginx.conf
-
-- name: Copy default nginx configuration
-  copy:
-    src: "{{ conda_prefix }}/etc/nginx/"
-    dest: "{{ prefix }}/etc/nginx"
-    mode: 0644
-
-- name: Copy nginx configuration
-  template: src=nginx.conf dest={{ prefix }}/etc/nginx/nginx.conf
+    path: /etc/nginx/sites-enabled/default
+    state: absent
   notify: restart nginx
 
-- name: Copy nginx default configuration
-  template: src=default.conf dest={{ prefix }}/etc/nginx/sites.d/default.conf
-  notify: restart nginx
+- name: nginx started
+  service:
+    name=nginx
+    state=started
+    enabled=yes
+
+- name: Assure nginx running at end of playbook
+  command: /bin/true
+  notify: nginx started
