@@ -4,3 +4,12 @@
     repo: "{{ project_repo }}"
     dest: "{{ project_location }}"
     update: yes
+  tags:
+    git
+
+- name: Create Conda environment from project environment file.
+  command: "{{conda_root}}/{{conda_folder_name}}/bin/conda env update"
+  args:
+    chdir: "{{ project_location }}"
+  tags:
+    conda
