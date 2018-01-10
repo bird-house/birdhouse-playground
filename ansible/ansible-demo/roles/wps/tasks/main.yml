@@ -1,0 +1,6 @@
+---
+- name: Clone project code.
+  git:
+    repo: "{{ project_repo }}"
+    dest: "{{ project_location }}"
+    update: yes
