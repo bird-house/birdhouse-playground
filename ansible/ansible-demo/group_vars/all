@@ -2,4 +2,7 @@
 # Variables listed here are applicable to all host groups
 
 prefix: /tmp/birdhouse
-conda_prefix: /opt/anaconda/envs/bird-demo
+conda_prefix: /usr/local/anaconda
+
+project_repo: https://github.com/bird-house/emu.git
+project_location: /opt/emu
