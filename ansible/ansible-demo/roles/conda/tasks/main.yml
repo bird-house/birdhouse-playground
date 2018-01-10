@@ -1,3 +1,0 @@
----
-- name: Create conda env.
-  shell: conda env create --force -f roles/conda/files/birds-environment.yml

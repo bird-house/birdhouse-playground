@@ -1,8 +1,0 @@
-name: bird-demo
-channels:
-- conda-forge
-- defaults
-dependencies:
-- python=2.7
-- supervisor
-- nginx=1.11
