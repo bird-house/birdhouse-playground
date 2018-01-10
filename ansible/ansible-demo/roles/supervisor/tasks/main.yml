@@ -1,15 +1,17 @@
 ---
-- name: Create etc/supervisor directory
-  file:
-    path: "{{ prefix }}/etc/supervisor/conf.d"
-    state: directory
-    mode: 0755
-
-- name: Create var/log/supervisor directory
-  file:
-    path: "{{ prefix }}/var/log/supervisor"
-    state: directory
-    mode: 0755
-
-- name: Configure supervisor
-  template: src=supervisord.conf dest={{ prefix }}/etc/supervisor/supervisord.conf
+- name: Install supervisord
+  become: true
+  apt:
+    name: supervisor
+    state: present
+    update_cache: yes
+  tags:
+    supervisor
+- name: Start supervisord
+  become: true
+  service:
+    name: "supervisor"
+    state: started
+    enabled: yes
+  tags:
+    supervisor
