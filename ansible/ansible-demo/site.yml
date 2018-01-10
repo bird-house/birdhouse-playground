@@ -6,3 +6,4 @@
     - role: andrewrothstein.miniconda
     - supervisor
     - nginx
+    - wps
