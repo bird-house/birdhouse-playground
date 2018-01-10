@@ -1,5 +1,5 @@
 [program:{{ program_name }}]
-command=sh run.sh
+command=source {{ conda_root }}/{{ conda_folder_name }}/bin/activate {{ program_name }}; gunicorn {{ program_name }}:application
 autostart=true
 directory={{ project_location }}
 stderr_logfile=/var/log/{{ program_name }}.err.log
