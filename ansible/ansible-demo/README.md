@@ -52,9 +52,11 @@ Run Ansible via Makefile ... it will also fetch required roles/recipes from ansi
 
 ## Try in a Docker container
 
+Make sure you are in the `ansible-demo/` folder.
+
 Start an Ubuntu Docker container and mount local source:
 
-    $ docker  run  -v `pwd`:`pwd` -w `pwd` -i -t --rm  ubuntu bash
+    $ docker run  -v `pwd`:/src -w /src -it --rm  ubuntu bash
 
 Run the Ansible deployment:
 
