@@ -29,23 +29,15 @@ A PyWPS service can be  used in the following deployment scenarios:
 
 ## Bootstrap
 
-Install Ansible on your system.
+Run bootstrap script to prepare your system and install Ansible:
 
-http://docs.ansible.com/ansible/latest/intro_installation.html
-
-Ubuntu:
-
-    $ sudo apt-get update
-    $ sudo apt-get install software-properties-common
-    $ sudo apt-add-repository ppa:ansible/ansible
-    $ sudo apt-get update
-    $ sudo apt-get install ansible
+    $ bash bootstrap.sh
 
 ## Install external roles
 
-miniconda:
+We need miniconda:
 
-    $ ansible-galaxy install -f andrewrothstein.miniconda
+    $ ansible-galaxy -p roles -r requirements.yml install
 
 ## Run Ansible
 
