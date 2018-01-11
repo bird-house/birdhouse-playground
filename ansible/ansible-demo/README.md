@@ -13,7 +13,7 @@ A PyWPS service may be used in the following deployment scenarios:
   - just clone repo and setup conda environment
   - should just run with defaults ... no further configuration necessary.
 * development on local laptop
-  - no full installation necessary (skip nginx, supervisor, ...)
+  - no full installation necessary (skip Nginx, Supervisor, ...)
   - might not have admin rights
   - enabled debug mode
   - could be the same as the testing/demo variant.
@@ -31,28 +31,26 @@ A PyWPS service may be used in the following deployment scenarios:
   - Quick-fix: just update the Dockerfile template and extend docker-compose configuration.
 * docker container for orchestration
   - Kubernetes seems to be the favorite orchestration tool by admins.
-  - Docker Swarm looks easier ... might be used for testing.
+  - Docker Swarm looks easier ... might be used for testing. But Docker support for Kubernetes is evolving.
   - Wanted: micro-service, a single PyWPS service without Nginx and Supervisor.
 
-## Bootstrap
+## Run Ansible Demo
+
+This demo currently works only on Debin/Ubuntu. It will install the Emu PyWPS application on a single host including Nginx and Supervisor. Nginx, Supervisor and miniconda are installed on the System. The Emu PyWPS application is fetched from GitHub and dependencies are installed into a Conda environment.
+
+### Bootstrap
 
 Run bootstrap script to prepare your system and install Ansible:
 
     $ bash bootstrap.sh
 
-## Install external roles
+### Run Ansible
 
-We need miniconda:
+Run Ansible via Makefile ... it will also fetch required roles/recipes from ansible-galaxy:
 
-    $ ansible-galaxy -p roles -r requirements.yml install
+    $ make install
 
-## Run Ansible
-
-Run ansible script:
-
-    $ bash play.sh
-
-## Ouestions?
+## Food for Thought
 
 * Ansible and Buildout are not used for the same purpose ... there is a philosophy conflict. Ansible is on the system level (but it could just be localhost), Buildout is on the application level (localhost only). In Ansible examples packages (like Nginx, Supervisor, ...) are installed on the system (Debian, CentOS). In the current Birdhouse deployment solution with Buildout all packages and configs (besides Makefile, gcc, ...) are installed in the user space ... no admin rights are necessary and full installation can be wiped out easily. Probably need to combine best of both sides depending on the deployment scenario.
 * Just a single Ansible deployment with configs for all birds? Or a minimal Ansible config in each bird repo fetching roles/recipes from ansible-galaxy?
