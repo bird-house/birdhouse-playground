@@ -52,10 +52,12 @@ Run ansible script:
 
     $ bash play.sh
 
-## Questions?
+## Ouestions?
 
-* Ansible and Buildout are not used for the same purpose ... there is a philosophy conflict. Ansible is on the system level (but it could just be localhost), Buildout is on the application level (localhost only). In Ansible examples packages (like nginx, supervisor, ...) are installed on the system (debian, centos). In the current Birdhouse deployment solution with Buildout all packages and configs (besides Makefile, gcc, ...) are installed in the user space ... no admin rights are necessary and full installation can be wiped out easily. Probably need to combine best of both sides depending on the deployment scenario.
-* Just a single Ansible deployment with configs for all birds? Or a minimal Ansible config in each bird repo fetching roles from ansible-galaxy?
+* Ansible and Buildout are not used for the same purpose ... there is a philosophy conflict. Ansible is on the system level (but it could just be localhost), Buildout is on the application level (localhost only). In Ansible examples packages (like Nginx, Supervisor, ...) are installed on the system (Debian, CentOS). In the current Birdhouse deployment solution with Buildout all packages and configs (besides Makefile, gcc, ...) are installed in the user space ... no admin rights are necessary and full installation can be wiped out easily. Probably need to combine best of both sides depending on the deployment scenario.
+* Just a single Ansible deployment with configs for all birds? Or a minimal Ansible config in each bird repo fetching roles/recipes from ansible-galaxy?
+* A PyWPS service can be run without the need of Ansible and Buildout ... just using a Werkzeug WSGI service and a minimal default configuration. Can be used for testing, demo and development. Need to figure out if current developers will like it :)
+* We need to provide a PyWPS micro-service docker container. This should simplify the Docker installation drastically ... might be just a simple Dockerfile template. Complexity will be moved to docker-compose to wire micro-services to serve as a single web application. The other micro-services should be official images on docker-cloud.   
 
 ## Links
 
