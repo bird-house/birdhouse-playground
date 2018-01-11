@@ -1,5 +1,4 @@
 ---
 
-- src: https://github.com/andrewrothstein/ansible-miniconda.git
-  version: v5.1.2
-  name: andrewrothstein.miniconda
+# from galaxy
+- src: andrewrothstein.miniconda
