@@ -40,7 +40,7 @@ This demo currently works only on Debin/Ubuntu. It will install the Emu PyWPS ap
 
 ### Bootstrap
 
-Run bootstrap script to prepare your system and install Ansible:
+Run bootstrap script (only once) to prepare your system and install Ansible:
 
     $ bash bootstrap.sh
 
@@ -48,6 +48,17 @@ Run bootstrap script to prepare your system and install Ansible:
 
 Run Ansible via Makefile ... it will also fetch required roles/recipes from ansible-galaxy:
 
+    $ make install
+
+## Try in a Docker container
+
+Start an Ubuntu Docker container and mount local source:
+
+    $ docker  run  -v `pwd`:`pwd` -w `pwd` -i -t --rm  ubuntu bash
+
+Run the Ansible deployment:
+
+    $ ./bootstrap.sh
     $ make install
 
 ## Food for Thought
