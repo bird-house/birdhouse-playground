@@ -1,0 +1,5 @@
+roles/andrewrothstein.bash
+roles/andrewrothstein.miniconda
+roles/andrewrothstein.unarchive-deps
+
+*.retry
