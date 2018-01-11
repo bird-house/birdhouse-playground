@@ -61,6 +61,16 @@ Run the Ansible deployment:
     $ ./bootstrap.sh
     $ make install
 
+Check if application is started (supervisor):
+
+    $ make status
+
+Run a WPS GetCapabilites request:
+
+    $ curl -s -o caps.xml \
+      "http://127.0.0.1:8000/wps?service=WPS&request=GetCapabilities"
+    $ less caps.xml
+
 ## Food for Thought
 
 * Ansible and Buildout are not used for the same purpose ... there is a philosophy conflict. Ansible is on the system level (but it could just be localhost), Buildout is on the application level (localhost only). In Ansible examples packages (like Nginx, Supervisor, ...) are installed on the system (Debian, CentOS). In the current Birdhouse deployment solution with Buildout all packages and configs (besides Makefile, gcc, ...) are installed in the user space ... no admin rights are necessary and full installation can be wiped out easily. Probably need to combine best of both sides depending on the deployment scenario.
