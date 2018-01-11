@@ -32,4 +32,4 @@ info:
 .PHONY: install
 install:
 	@echo "\nInstalling application with Ansible ..."
-	@ansible-playbook -c local site.yml
+	@ansible-playbook -c local playbook.yml
