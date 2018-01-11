@@ -18,6 +18,8 @@ help:
 	@echo "  version     to print version number of this Makefile."
 	@echo "  info        to print information about your System."
 	@echo "  install     to install application by running Ansible."
+	@echo "\nSupervisor targets:"
+	@echo "  status      to show supervisor status"
 
 .PHONY: version
 version:
@@ -38,3 +40,7 @@ bootstrap:
 install: bootstrap
 	@echo "\nInstalling application with Ansible ..."
 	@ansible-playbook -c local playbook.yml
+
+.PHONY: status
+status:
+	supervisorctl status
