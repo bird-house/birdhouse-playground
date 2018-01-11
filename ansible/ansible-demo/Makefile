@@ -29,7 +29,12 @@ info:
 	@echo "  OS_NAME             $(OS_NAME)"
 	@echo "  CPU_ARCH            $(CPU_ARCH)"
 
+.PHONY: bootstrap
+bootstrap:
+	@echo "\nInstalling required Ansible roles from ansible-galaxy ..."
+	@ansible-galaxy -p roles -r requirements.yml install
+
 .PHONY: install
-install:
+install: bootstrap
 	@echo "\nInstalling application with Ansible ..."
 	@ansible-playbook -c local playbook.yml
