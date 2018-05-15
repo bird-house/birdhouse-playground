@@ -1,6 +1,0 @@
----
-# Variables listed here are applicable to bovec host
-
-server_hostname: bovec.dkrz.de
-user: tomcat
-archive_root: /mnt/lustre01/work/kd0956/CMIP5/data:/mnt/lustre01/work/kd0956/CORDEX/data:/mnt/lustre01/work/kd0956/OBS4MIPS/data

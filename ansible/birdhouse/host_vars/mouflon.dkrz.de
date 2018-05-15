@@ -1,5 +1,0 @@
----
-# Variables listed here are applicable to mouflon host
-
-server_hostname: mouflon.dkrz.de
-user: nobody
